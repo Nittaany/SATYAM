@@ -2,6 +2,9 @@ import { Poppins, Montserrat } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/HeroSection';
+import AboutMe from '@/components/AboutMe'; 
+import Projects from '@/components/Projects';
+import Skills from '@/components/Skills';
 import React from 'react';
 
 const poppins = Poppins({
@@ -33,6 +36,9 @@ export default function RootLayout({
       <body className="font-poppins">
         <Navbar />
         <HeroSection />
+        <AboutMe />
+        <Projects />
+        <Skills />
         {children}
       </body>
     </html>
