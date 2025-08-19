@@ -48,7 +48,7 @@ const ContactMe = () => {
   const [particlePositions, setParticlePositions] = useState<Particle[]>([]);
   
   const sectionRef = useRef<HTMLElement>(null);
-  const formRef = useRef<HTMLDivElement>(null);
+  // const formRef = useRef<HTMLDivElement>(null);
   const textToType = "Let's build something extraordinary together...";
 
   // Initialize particles
