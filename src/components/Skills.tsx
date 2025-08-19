@@ -321,8 +321,8 @@ function seededOffset(label: string) {
 function SkillChip({
   label,
   progress,
-  animStart = 0,
-  animEnd = 0.5,
+  animStart = 0.2,
+  animEnd = 0.45,
 }: {
   label: string;
   progress: MotionValue<number>;

@@ -5,6 +5,8 @@ import HeroSection from '@/components/HeroSection';
 import AboutMe from '@/components/AboutMe'; 
 import Projects from '@/components/Projects';
 import Skills from '@/components/Skills';
+import Contact from '@/components/Contact';   
+
 import React from 'react';
 
 const poppins = Poppins({
@@ -39,6 +41,7 @@ export default function RootLayout({
         <AboutMe />
         <Projects />
         <Skills />
+        <Contact />
         {children}
       </body>
     </html>
