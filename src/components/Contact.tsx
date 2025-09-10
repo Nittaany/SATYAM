@@ -53,7 +53,7 @@ const ContactMe = () => {
   useEffect(() => {
     const commands = [
       '> npm install satyam-dev',
-      '> Successfully installed 🚀',
+      '> Portfolio installed successfully 🚀',
       '> Available for opportunities... 📣',
       '> Ready to collaborate 💫'
     ];
