@@ -4,39 +4,99 @@ import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring, useInView } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
+import { SiJavascript, SiPython, SiCplusplus, SiPhp,  
+         SiReact, SiHtml5, SiCss3, SiTailwindcss, 
+         SiBootstrap, SiMysql, SiGit, SiGithub, 
+         SiPostman, SiNetlify, SiVercel, SiReplit } from 'react-icons/si';
+import { BiLogoFirebase, BiLogoJava } from 'react-icons/bi';
+import { TbBrandNextjs, TbBrandVscode } from 'react-icons/tb';
+import type { IconType } from 'react-icons';
 
-// Tech stack data
-const techStack = [
+interface Tech {
+  id: number;
+  name: string;
+  icon: IconType;
+  category: string;
+}
+
+// Tech stack data with React Icons
+const techStack: Tech[] = [
   // Programming Languages
-  { id: 1, name: 'JavaScript', icon: '/icons/javascript.svg', category: 'language' },
-  { id: 2, name: 'Python', icon: '/icons/python.png', category: 'language' },
-  { id: 3, name: 'C/C++', icon: '/icons/cpp.svg', category: 'language' },
-  { id: 4, name: 'PHP', icon: '/icons/php.svg', category: 'language' },
-  { id: 5, name: 'Java', icon: '/icons/java.svg', category: 'language' },
+  { id: 1, name: 'JavaScript', icon: SiJavascript, category: 'language' },
+  { id: 2, name: 'Python', icon: SiPython, category: 'language' },
+  { id: 3, name: 'C/C++', icon: SiCplusplus, category: 'language' },
+  { id: 4, name: 'PHP', icon: SiPhp, category: 'language' },
+  { id: 5, name: 'Java', icon: BiLogoJava, category: 'language' },
 
   // Frontend & Frameworks
-  { id: 6, name: 'Next.js', icon: '/icons/nextjs.svg', category: 'frontend' },
-  { id: 7, name: 'React.js', icon: '/icons/react.svg', category: 'frontend' },
-  { id: 8, name: 'HTML', icon: '/icons/html.svg', category: 'frontend' },
-  { id: 9, name: 'CSS', icon: '/icons/css.svg', category: 'frontend' },
-  { id: 10, name: 'Tailwind', icon: '/icons/tailwind.svg', category: 'frontend' },
-  { id: 11, name: 'Bootstrap', icon: '/icons/bootstrap.svg', category: 'frontend' },
-  { id: 12, name: 'Firebase', icon: '/icons/firebase.svg', category: 'frontend' },
+  { id: 6, name: 'Next.js', icon: TbBrandNextjs, category: 'frontend' },
+  { id: 7, name: 'React.js', icon: SiReact, category: 'frontend' },
+  { id: 8, name: 'HTML', icon: SiHtml5, category: 'frontend' },
+  { id: 9, name: 'CSS', icon: SiCss3, category: 'frontend' },
+  { id: 10, name: 'Tailwind', icon: SiTailwindcss, category: 'frontend' },
+  { id: 11, name: 'Bootstrap', icon: SiBootstrap, category: 'frontend' },
+  { id: 12, name: 'Firebase', icon: BiLogoFirebase, category: 'frontend' },
 
   // Database
-  { id: 13, name: 'MySQL', icon: '/icons/mysql.svg', category: 'database' },
-  { id: 14, name: 'Firebase', icon: '/icons/firebase.svg', category: 'database' },
+  { id: 13, name: 'MySQL', icon: SiMysql, category: 'database' },
+  { id: 14, name: 'Firebase', icon: BiLogoFirebase, category: 'database' },
 
   // Tools & Platforms
-  { id: 15, name: 'Git', icon: '/icons/git.svg', category: 'tools' },
-  { id: 16, name: 'GitHub', icon: '/icons/github.svg', category: 'tools' },
-  { id: 17, name: 'VS Code', icon: '/icons/vscode.svg', category: 'tools' },
-  { id: 18, name: 'Postman', icon: '/icons/postman.svg', category: 'tools' },
-  { id: 19, name: 'Botpress', icon: '/icons/botpress.svg', category: 'tools' },
-  { id: 20, name: 'Netlify', icon: '/icons/netlify.svg', category: 'tools' },
-  { id: 21, name: 'Vercel', icon: '/icons/vercel.svg', category: 'tools' },
-  { id: 22, name: 'Replit', icon: '/icons/replit.svg', category: 'tools' }
+  { id: 15, name: 'Git', icon: SiGit, category: 'tools' },
+  { id: 16, name: 'GitHub', icon: SiGithub, category: 'tools' },
+  { id: 17, name: 'VS Code', icon: TbBrandVscode, category: 'tools' },
+  { id: 18, name: 'Postman', icon: SiPostman, category: 'tools' },
+  { id: 19, name: 'Botpress', icon: TbBrandNextjs, category: 'tools' },
+  { id: 20, name: 'Netlify', icon: SiNetlify, category: 'tools' },
+  { id: 21, name: 'Vercel', icon: SiVercel, category: 'tools' },
+  { id: 22, name: 'Replit', icon: SiReplit, category: 'tools' }
 ];
+
+const ScrollingTechStack: React.FC = () => {
+  return (
+    <div className="py-6 overflow-hidden">
+      <motion.div
+        className="flex gap-6 px-4"
+        animate={{ x: [-1800, 0] }}
+        transition={{
+          duration: 40,
+          repeat: Infinity,
+          ease: "linear",
+          repeatDelay: 0
+        }}
+        style={{
+          willChange: "transform",
+          transform: "translate3d(0,0,0)",
+          backfaceVisibility: "hidden",
+          WebkitFontSmoothing: "subpixel-antialiased"
+        }}
+      >
+        {[...techStack, ...techStack, ...techStack].map((tech, index) => (
+          <motion.div
+            key={`${tech.id}-${index}`}
+            className="flex-shrink-0"
+            style={{
+              transform: "translate3d(0,0,0)",
+              backfaceVisibility: "hidden",
+              WebkitFontSmoothing: "subpixel-antialiased"
+            }}
+          >
+            <motion.div
+              className="w-11 h-11 rounded-lg bg-gradient-to-br from-black/40 to-black/20 backdrop-blur-sm
+                border border-white/10 hover:border-white/30 transition-all duration-300
+                hover:shadow-lg hover:shadow-purple-500/20 flex items-center justify-center"
+              whileHover={{ scale: 1.08 }}
+            >
+              {React.createElement(tech.icon, {
+                className: "w-6 h-6 text-white/60 hover:text-white/100 transition-all duration-300"
+              })}
+            </motion.div>
+          </motion.div>
+        ))}
+      </motion.div>
+    </div>
+  );
+};
 
 // Main HeroSection component
 const HeroSection: React.FC = () => {
@@ -237,14 +297,14 @@ const HeroSection: React.FC = () => {
               {/* Command Line at Top */}
               <div className="px-4 py-2 bg-black/20 border-b border-white/10">
                 <div className="flex items-center gap-2 font-mono text-sm">
-                  <span className="text-green-400">➜</span>
-                  <span className="text-blue-400">~/skills</span>
-                  <span className="text-white/60">git:(</span>
+                  <span className="text-green-500">➜</span>
+                  <span className="text-blue-400">~/portfolio</span>
+                  <span className="text-gray-400">on</span>
                   <span className="text-purple-400">main</span>
-                  <span className="text-white/60">)</span>
-                  <span className="text-gray-400">ls --all</span>
+                  <span className="text-gray-400 ml-2">$</span>
+                  <span className="text-white/90">ls ./skills/</span>
                   <motion.span 
-                    className="inline-block w-2 h-4 bg-white/80"
+                    className="inline-block w-2 h-4 bg-white/80 ml-1"
                     animate={{ opacity: [1, 0] }}
                     transition={{ duration: 0.8, repeat: Infinity }}
                   />
@@ -252,53 +312,10 @@ const HeroSection: React.FC = () => {
               </div>
 
               {/* Skills Area */}
-              <div className="py-6 overflow-hidden">
-                <motion.div
-                  className="flex gap-5 px-4"
-                  animate={{ 
-                    x: [0, -2400]  // Adjusted for more items
-                  }}
-                  transition={{ 
-                    duration: 40,  // Slower animation
-                    repeat: Infinity,
-                    ease: "linear"
-                  }}
-                >
-                  {[...techStack, ...techStack].map((tech, index) => (
-                    <div
-                      key={`${tech.id}-${index}`}
-                      className="flex-shrink-0"
-                    >
-                      <motion.div
-                        className="w-11 h-11 rounded-lg bg-gradient-to-br from-black/40 to-black/20 backdrop-blur-sm p-2.5
-                          border border-white/10 hover:border-white/30 transition-all duration-300
-                          hover:shadow-lg hover:shadow-purple-500/20 flex items-center justify-center"
-                        whileHover={{ scale: 1.08 }}
-                      >
-                        <Image
-                          src={tech.icon}
-                          alt={tech.name}
-                          width={24}
-                          height={24}
-                          className="object-contain opacity-60 hover:opacity-100 transition-opacity duration-300"
-                        />
-                      </motion.div>
-                    </div>
-                  ))}
-                </motion.div>
-              </div>
-
-              {/* Status Bar */}
-              <div className="px-4 py-2 bg-black/20 border-t border-white/10">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-mono text-gray-400">{techStack.length} technologies</span>
-                  <span className="text-xs font-mono text-gray-400">Use arrow keys to navigate</span>
-                </div>
-              </div>
+              <ScrollingTechStack />
             </div>
           </div>
         </motion.div>
-
         {/* Scroll Indicator */}
         <motion.div
           className="absolute -bottom-4 left-1/2 transform -translate-x-1/2"
