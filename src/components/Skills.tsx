@@ -452,7 +452,9 @@ export default function Skills() {
   const sectionY = useTransform(scrollYProgress, [0, 0.2], [24, 0]);
 
   return (
-    <section ref={sectionRef} className="relative mx-auto max-w-6xl px-4 py-20">
+    <section
+    id='skills'
+    ref={sectionRef} className="relative mx-auto max-w-6xl px-4 py-20">
       <motion.div style={{ opacity: sectionOpacity, y: sectionY }}>
         <header className="mb-10 flex items-end justify-between gap-6">
           <div>

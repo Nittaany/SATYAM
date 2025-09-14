@@ -199,6 +199,7 @@ const ProjectShowcase: React.FC = () => {
 
   return (
     <section 
+      id='projects'
       ref={sectionRef}
       className="relative min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800 py-20 px-6 overflow-hidden"
     >

@@ -286,6 +286,7 @@ const Footer: React.FC<FooterProps> = ({
     <>
       <motion.footer
         ref={footerRef}
+        id='footer'
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}

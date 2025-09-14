@@ -103,7 +103,6 @@ const carouselImages = [
 
 const AboutMe = () => {
   const mountRef = useRef<HTMLDivElement>(null);
-  const carouselRef = useRef<HTMLDivElement>(null);
   const [isMounted, setIsMounted] = useState(false);
   const [activeCodeBlock, setActiveCodeBlock] = useState(0);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -274,7 +273,9 @@ const AboutMe = () => {
   }, [isMounted]);
 
   return (
-    <section className="relative w-full min-h-screen py-20 overflow-hidden bg-gradient-to-br from-[#0A0A0A] to-[#111827]">
+    <section 
+    id='aboutme'
+    className="relative w-full min-h-screen py-20 overflow-hidden bg-gradient-to-br from-[#0A0A0A] to-[#111827]">
       {/* Grid Background */}
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAwIDEwIEwgNDAgMTAgTSAxMCAwIEwgMTAgNDBNIDAgMjAgTCA0MCAyMCBNIDIwIDAgTCAyMCA0MCBNIDAgMzAgTCA0MCAzMCBNIDMwIDAgTCAzMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMjAyMDIwIiBvcGFjaXR5PSIwLjIiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-5" />
 

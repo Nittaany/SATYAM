@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform, useSpring, useInView } from 'framer-motion';
+import React, { useRef, useEffect } from 'react';
+import { motion, useScroll, useTransform, useSpring, useInView, useAnimation } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTypewriter, Cursor } from 'react-simple-typewriter';
 import { SiJavascript, SiPython, SiCplusplus, SiPhp,  
          SiReact, SiHtml5, SiCss3, SiTailwindcss, 
          SiBootstrap, SiMysql, SiGit, SiGithub, 
@@ -99,18 +100,54 @@ const ScrollingTechStack: React.FC = () => {
 };
 
 // Main HeroSection component
+const TypewriterComponent: React.FC = () => {
+  const [text] = useTypewriter({
+    words: [
+      'Full Stack Developer',
+      'Code Architect',
+      'Bug Exterminator',
+      'Pixel Perfectionist',
+      'Coffee → Code Converter',
+      '404 Error Handler',
+      'Digital Dreamweaver'
+    ],
+    loop: true,
+    delaySpeed: 2000,
+    deleteSpeed: 50,
+    typeSpeed: 70
+  });
+
+  return (
+    <span>
+      {text}
+      <Cursor cursorStyle='_' />
+    </span>
+  );
+};
+
 const HeroSection: React.FC = () => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true });
   const { scrollY } = useScroll();
+  const controls = useAnimation();
 
   const y = useSpring(
     useTransform(scrollY, [0, 300], [0, -50]),
     { stiffness: 100, damping: 30 }
   );
 
+  useEffect(() => {
+    if (isInView) {
+      controls.start({
+        scale: [0.8, 1.1, 1],
+        rotate: [0, -10, 0],
+        transition: { duration: 1.2, ease: "easeOut" }
+      });
+    }
+  }, [isInView, controls]);
+
   return (
-    <section id="hero" className="relative flex flex-col items-center justify-center min-h-screen overflow-hidden bg-gradient-to-br from-[#0A0A0A] to-[#111827]">
+    <section id="hero" className="relative flex flex-col items-center justify-center min-h-screen pt-20 overflow-hidden bg-gradient-to-br from-[#0A0A0A] to-[#111827]">
       {/* Glassmorphic Grid Background */}
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAwIDEwIEwgNDAgMTAgTSAxMCAwIEwgMTAgNDBNIDAgMjAgTCA0MCAyMCBNIDIwIDAgTCAyMCA0MCBNIDAgMzAgTCA0MCAzMCBNIDMwIDAgTCAzMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMjAyMDIwIiBvcGFjaXR5PSIwLjIiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-5" />
 
@@ -170,23 +207,22 @@ const HeroSection: React.FC = () => {
             </motion.h1>
 
             <motion.p
-              className="text-lg md:text-xl text-white/80 font-poppins"
+              className="text-lg md:text-xl text-white/80 font-mono"
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              Full Stack Developer • UI/UX Enthusiast • Problem Solver
+              <TypewriterComponent />
             </motion.p>
 
             <motion.p
-              className="text-base md:text-lg text-white/60 max-w-xl mx-auto lg:mx-0"
+              className="text-base md:text-lg text-white/60 max-w-xl mx-auto lg:mx-0 font-mono"
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.5 }}
             >
-              Passionate about crafting elegant solutions to complex problems. 
-              With a strong foundation in modern web technologies and a keen eye for design,
-              I build experiences that make a difference.
+              {"// TODO: Fix bugs. Create bugs. Fix them again."}<br />
+              {"/* When I'm not coding, I'm thinking about coding */"}
             </motion.p>
 
             <motion.div
@@ -248,7 +284,7 @@ const HeroSection: React.FC = () => {
                 <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMCAwIEwyMCAwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMC4zIiBzdHJva2UtZGFzaGFycmF5PSIyLDQiLz48L3N2Zz4=')] opacity-20 group-hover:opacity-40 transition-opacity duration-300" />
                 
                 <Image
-                  src="/images/avatar-1.jpg"
+                  src="/images/photo-output.JPEG"
                   alt="Profile"
                   fill
                   className="object-cover scale-105 group-hover:scale-100 transition-transform duration-300"
