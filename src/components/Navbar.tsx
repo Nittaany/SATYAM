@@ -3,11 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
 
-// Define the structure for a navigation link
-interface NavLink {
-  name: string;
-  href: string;
-}
 
 const Navbar: React.FC = () => {
   // State to control the visibility of the navbar animation
@@ -132,7 +127,7 @@ const navLinks = [
   onClick={(e) => handleScroll(e, '#contact')}
   className="relative inline-block px-6 py-3 text-sm font-semibold 
              text-white rounded-xl overflow-hidden 
-             bg-gradient-to-r from-fuchsia-500/20 via-purple-500/20 to-cyan-400/20
+             bg-gradient-to-r from-fuchsia-500/70 via-purple-500/70 to-cyan-400/70
              transition-transform duration-300 hover:scale-105 
              hover:shadow-[0_0_25px_rgba(168,85,247,0.8)]"
   initial={{ opacity: 0, y: 20 }}
@@ -141,7 +136,7 @@ const navLinks = [
 >
   {/* Glowing Border Overlay */}
   <span className="absolute inset-0 rounded-xl p-[2px] bg-gradient-to-r 
-                   from-fuchsia-500/50 via-cyan-400/50 to-violet-600/50 animate-pulse opacity-70">
+                   from-fuchsia-500/30 via-cyan-400/30 to-violet-600/30 animate-pulse opacity-70">
     <span className="block h-full w-full rounded-xl bg-transparent"></span>
   </span>
 

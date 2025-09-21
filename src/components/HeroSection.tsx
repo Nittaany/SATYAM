@@ -12,6 +12,8 @@ import { SiJavascript, SiPython, SiCplusplus, SiPhp,
 import { BiLogoFirebase, BiLogoJava } from 'react-icons/bi';
 import { TbBrandNextjs, TbBrandVscode } from 'react-icons/tb';
 import type { IconType } from 'react-icons';
+import {AnimatePresence } from "framer-motion";
+import {useState  } from "react";
 
 interface Tech {
   id: number;
@@ -52,6 +54,43 @@ const techStack: Tech[] = [
   { id: 21, name: 'Vercel', icon: SiVercel, category: 'tools' },
   { id: 22, name: 'Replit', icon: SiReplit, category: 'tools' }
 ];
+
+const wittyComments = [
+  "// TODO: Fix bugs. Create bugs. Fix them again.",
+  "/* When I'm not coding, I'm thinking about Code */",
+  "// Ctrl + S is my panic button.",
+  "/* Hire me before AI replaces me 😅 */",
+  "// Console.log is my therapist.",
+  "/* JavaScript is my love language */",
+  "// Writing logic that Google can't autocomplete",
+  "/* Minimal code. Maximum impact. */",
+  "// Debugging: Where the fun begins",
+  "/* Eat, Sleep, Code, Repeat */",
+  "// My code never has bugs. It just develops random features.",
+  "/* Keep calm and code on */",
+  "// I write code. What's your superpower?",
+  "/* Code is poetry in motion */",
+  "// In a relationship with my IDE",
+  "/* Just one more feature... and one more... and one more... */",
+  "// I speak fluent code and sarcasm",
+  "/* Code is my canvas, creativity is my brush */",
+  "// I build things that make the internet awesome",
+  "// My code is so clean, you could eat off it",
+  "/* Coding is my therapy, and the keyboard is my couch */",
+  "// I write code that even my mom can understand",
+  "/* Code is my playground, and bugs are just part of the fun */",
+  "// My code is like a fine wine, it gets better with age",
+  "// Code is my love language, and I'm fluent in it",
+  "/* Coding is not just a job, it's a lifestyle */",
+  "// I write code that makes computers do cool stuff",
+  "// My code is so efficient, it could run on a potato",
+  "// My code is so good, it should come with a warning label",
+  "// Probably debugging while you read this",
+  "/* Half developer, half illusionist */",
+  "// My variables have trust issues",
+  "// Breaking things beautifully"
+];
+
 
 const ScrollingTechStack: React.FC = () => {
   return (
@@ -146,7 +185,18 @@ const HeroSection: React.FC = () => {
     }
   }, [isInView, controls]);
 
+  const [index, setIndex] = useState(0);
+
+useEffect(() => {
+  const interval = setInterval(() => {
+    setIndex((prev) => (prev + 1) % wittyComments.length);
+  }, 4000); // change every 4 sec
+  return () => clearInterval(interval);
+}, []);
+
+
   return (
+    
     <section id="hero" className="relative flex flex-col items-center justify-center min-h-screen pt-20 overflow-hidden bg-gradient-to-br from-[#0A0A0A] to-[#111827]">
       {/* Glassmorphic Grid Background */}
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAwIDEwIEwgNDAgMTAgTSAxMCAwIEwgMTAgNDBNIDAgMjAgTCA0MCAyMCBNIDIwIDAgTCAyMCA0MCBNIDAgMzAgTCA0MCAzMCBNIDMwIDAgTCAzMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMjAyMDIwIiBvcGFjaXR5PSIwLjIiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-5" />
@@ -216,14 +266,16 @@ const HeroSection: React.FC = () => {
             </motion.p>
 
             <motion.p
+              key={index}
               className="text-base md:text-lg text-white/60 max-w-xl mx-auto lg:mx-0 font-mono"
               initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.5 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.6 }}
             >
-              {"// TODO: Fix bugs. Create bugs. Fix them again."}<br />
-              {"/* When I'm not coding, I'm thinking about coding */"}
+              {wittyComments[index]}
             </motion.p>
+
 
             <motion.div
               className="flex flex-wrap justify-center lg:justify-start gap-4"
@@ -231,84 +283,159 @@ const HeroSection: React.FC = () => {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.6 }}
             >
+              {/* View Projects Button */}
               <Link href="#projects">
                 <motion.button
-                  className="px-8 py-3 rounded-lg bg-white/5 backdrop-blur-sm border border-white/10 hover:border-white/20 
-                    text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-neon"
-                  whileHover={{ scale: 1.05 }}
+                  className="relative px-7 py-3 rounded-lg font-normal text-sm 
+                            text-white bg-transparent border border-purple-500/50
+                            hover:border-purple-400 transition-all duration-300
+                            overflow-hidden group flex items-center justify-center"
+                  whileHover={{ scale: 1.07 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  View Projects
+                  {/* Underline Sweep Effect */}
+                  <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r 
+                                  from-pink-500 via-purple-500 to-cyan-500 
+                                  transition-all duration-500 group-hover:w-full"></span>
+
+                  {/* Button Text */}
+                  <span className="relative z-10 group-hover:text-purple-300 transition-colors">
+                    📂 View Projects
+                  </span>
                 </motion.button>
               </Link>
-              <a href="/resume.pdf" download>
+
+              {/* Download Resume Button */}
+              <a 
+                href="https://drive.google.com/uc?export=download&id=1mgVZBLUCuAtVY_QhzuJLOWosUOJqUE1V" 
+                download
+              >
                 <motion.button
-                  className="px-8 py-3 rounded-lg bg-gradient-to-r from-[#7928CA] to-[#FF0080] text-white font-medium 
-                    transition-all duration-300 hover:scale-105 hover:shadow-neon"
-                  whileHover={{ scale: 1.05 }}
+                  className="relative px-8 py-3 rounded-lg bg-gradient-to-r from-[#8A2BE2] to-[#FF69B4] text-white font-normal text-sm
+                            shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_15px_rgba(255,105,180,0.6)] 
+                            overflow-hidden group flex items-center justify-center"
+                  whileHover={{ scale: 1.06 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  Download Resume
+                  {/* Subtle overlay pulse */}
+                  <span className="absolute inset-0 rounded-lg bg-white/5 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></span>
+
+                  <span className="relative z-10">💾 Download Resume</span>
                 </motion.button>
               </a>
             </motion.div>
+
           </div>
 
-          {/* Right Content - Profile Image with Code Effect */}
-          <motion.div 
-            className="flex-1 relative"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 1, delay: 0.3 }}
-          >
-            <div className="relative w-[320px] h-[420px] mx-auto perspective-1000">
-              <motion.div
-                className="absolute -inset-4 bg-gradient-to-r from-[#7928CA] to-[#FF0080] rounded-lg blur-2xl opacity-50"
-                animate={{
-                  scale: [1, 1.2, 1],
-                  rotate: [0, 5, 0],
-                }}
-                transition={{
-                  duration: 8,
-                  repeat: Infinity,
-                  ease: "linear"
-                }}
-              />
-              <motion.div
-                className="relative w-full h-full rounded-lg overflow-hidden border border-white/10 backdrop-blur-sm group"
-                whileHover={{ scale: 1.02, rotateY: 5 }}
-                transition={{ duration: 0.3 }}
-              >
-                {/* Code line overlay */}
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black/80 opacity-40 group-hover:opacity-20 transition-opacity duration-300" />
-                <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMCAwIEwyMCAwIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMC4zIiBzdHJva2UtZGFzaGFycmF5PSIyLDQiLz48L3N2Zz4=')] opacity-20 group-hover:opacity-40 transition-opacity duration-300" />
-                
-                <Image
-                  src="/images/photo-output.JPEG"
-                  alt="Profile"
-                  fill
-                  className="object-cover scale-105 group-hover:scale-100 transition-transform duration-300"
-                  priority
-                />
+{/* Right Content - Optimized Expert Dev Profile Image */}
+<motion.div 
+  className="flex-1 relative"
+  initial={{ opacity: 0, scale: 0.85 }}
+  animate={isInView ? { opacity: 1, scale: 1 } : {}}
+  transition={{ duration: 1, delay: 0.3 }}
+>
+  <div className="relative w-[320px] h-[420px] mx-auto perspective-1000">
 
-                {/* Terminal-like overlay */}
-                <div className="absolute top-0 left-0 right-0 bg-gradient-to-b from-black/80 to-transparent p-3 transform -translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                  <div className="flex items-center gap-1.5">
-                    <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
-                  </div>
-                </div>
+    {/* Neon Orbit Glow / Hologram Lines */}
+    <motion.div
+      className="absolute -inset-4 rounded-lg blur-2xl opacity-50 bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500"
+      animate={{
+        rotate: [0, 10, -10, 0],
+        scale: [1, 1.12, 1.08, 1]
+      }}
+      transition={{
+        duration: 12,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }}
+    />
 
-                {/* Code comment overlay */}
-                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                  <code className="text-xs text-green-400 font-mono">{"// Developer mode: Activated"}</code>
-                </div>
-              </motion.div>
-            </div>
-          </motion.div>
+    {/* Pre-generate floating hologram line positions */}
+    {Array.from({ length: 12 }).map((_, i) => {
+      const topPos = Math.random() * 100;
+      const leftPos = Math.random() * 100;
+      const rotateDuration = 6 + Math.random() * 6;
+      return (
+        <motion.div
+          key={i}
+          className="absolute w-[2px] h-10 bg-gradient-to-b from-purple-400/70 to-pink-400/20 rounded-full"
+          style={{ top: `${topPos}%`, left: `${leftPos}%` }}
+          animate={{
+            rotate: [0, 360],
+            y: [-8, 8, -8]
+          }}
+          transition={{
+            duration: rotateDuration,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: Math.random() * 2
+          }}
+        />
+      );
+    })}
+
+    {/* Code Particles */}
+    <div className="absolute inset-0 pointer-events-none">
+      {Array.from({ length: typeof window !== "undefined" && window.innerWidth < 768 ? 15 : 40 }).map((_, i) => (
+        <motion.span
+          key={i}
+          className="absolute text-green-400 font-mono text-[10px] select-none"
+          initial={{ y: -50, x: Math.random() * 320 }}
+          animate={{ y: 450 }}
+          transition={{
+            duration: 4 + Math.random() * 6,
+            repeat: Infinity,
+            repeatType: "loop",
+            ease: "linear",
+            delay: Math.random() * 5
+          }}
+        >
+          {Math.random() > 0.5 ? "1" : "0"}
+        </motion.span>
+      ))}
+    </div>
+
+    {/* Main Image Card */}
+    <motion.div
+      className="relative w-full h-full rounded-lg overflow-hidden border border-white/10 backdrop-blur-sm group"
+      whileHover={{ scale: 1.03, rotateY: 6 }}
+      transition={{ duration: 0.3 }}
+    >
+      {/* Neon Frame Glow */}
+      <motion.div
+        className="absolute inset-0 rounded-lg border-2 border-pink-500/50 pointer-events-none"
+        animate={{ opacity: [0.4, 0.7, 0.4] }}
+        transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+      />
+
+      {/* Image */}
+      <Image
+        src="/images/IMG_0684.JPG"
+        alt="Profile"
+        fill
+        className="object-cover scale-105 group-hover:scale-100 transition-transform duration-300 filter brightness-90 contrast-110"
+        priority
+      />
+
+      {/* Terminal overlay top */}
+      <div className="absolute top-0 left-0 right-0 bg-gradient-to-b from-black/80 to-transparent p-3 transform -translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+        <div className="flex items-center gap-1.5">
+          <div className="w-2.5 h-2.5 rounded-full bg-red-500/80 animate-pulse" />
+          <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80 animate-pulse" />
+          <div className="w-2.5 h-2.5 rounded-full bg-green-500/80 animate-pulse" />
+        </div>
+      </div>
+
+      {/* Bottom code comment with shimmer */}
+      <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+        <code className="text-xs text-green-400 font-mono animate-[shimmer_3s_infinite]">
+          {"// Developer mode: Activated"}
+        </code>
+      </div>
+    </motion.div>
+  </div>
+</motion.div>
         </motion.div>
-
         {/* Tech Stack Terminal */}
         <motion.div
           className="mt-12 w-full max-w-4xl mx-auto"
