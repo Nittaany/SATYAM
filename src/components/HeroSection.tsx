@@ -88,7 +88,7 @@ const wittyComments = [
   "// Probably debugging while you read this",
   "/* Half developer, half illusionist */",
   "// My variables have trust issues",
-  "// Breaking things beautifully"
+  "// Breaking things beautifully",
 ];
 
 
