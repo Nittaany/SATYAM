@@ -11,6 +11,7 @@ interface Certificate {
   title: string;
   issuer: string;
   image: string;
+  logo: string;
   credentialUrl?: string;
 }
 
@@ -40,6 +41,7 @@ const certificates: Certificate[] = [
     id: 'Oracle',
     title: 'Oracle Certified Foundations Associate',
     issuer: 'Oracle',
+    logo: '/images/oracleFA-logo.png',
     image: '/images/OFA.png',
     credentialUrl: 'https://catalog-education.oracle.com/ords/certview/sharebadge?id=DC20044A811377F383050F00CFD2B25E83908AC5DD1EF0C1F9FB4406C4824495'
   },
@@ -47,6 +49,7 @@ const certificates: Certificate[] = [
     id: 'AWS',
     title: 'AWS Academy Machine Learning Foundations',
     issuer: 'AWS',
+    logo: '/images/awsML-logo.png',
     image: '/images/ML.png',
     credentialUrl: 'https://www.credly.com/badges/7f79acd9-cd98-43e3-9dda-be64dde688da/public_url'
   },
@@ -54,6 +57,7 @@ const certificates: Certificate[] = [
     id: 'Cisco',
     title: 'Cisco Networking Basics',
     issuer: 'Cisco',
+    logo: '/images/ciscoNB-logo.png',
     image: '/images/NB.png',
     credentialUrl: 'https://www.credly.com/badges/e1db1d55-0387-4127-b04e-896718586e8f/public_url'
   },
@@ -61,6 +65,7 @@ const certificates: Certificate[] = [
     id: 'NPTEL',
     title: 'NPTEL - Communication Networks',
     issuer: 'NPTEL',
+    logo: '/images/nptelCN-logo.png',
     image: '/images/NPTEL.png',
     credentialUrl: 'https://archive.nptel.ac.in/content/noc/NOC25/SEM1/Ecertificates/117/noc25-ee12/Course/NPTEL25EE12S24330345804507064.pdf'
   }
@@ -245,24 +250,59 @@ const AboutMe = () => {
             className="space-y-8"
           >
             {/* Personal Story */}
-          <div className="bg-gray-900/80 backdrop-blur-sm rounded-xl border border-gray-700/50 p-6">
-            <h3 className="text-2xl font-bold text-white mb-4 font-mono">
-              <span className="text-purple-400">|-|</span> My Story
-            </h3>
-            <div className="text-gray-300 space-y-4 leading-relaxed">
-              <p>
-                I was that kid who loved playing games on the computer and kept wondering how all this works.  
-                Slowly that curiosity turned into a real interest and I found myself diving into coding and web development.  
-              </p>
-              <p>
-                Today I’m a computer science student who enjoys building websites and applications that actually solve problems.  
-                My main focus is on writing clean code and making things work smoothly.  
-              </p>
-              <p className="text-purple-400 font-semibold">
-                Right now exploring React, Node.js and whatever new tech excites me next.  
-              </p>
-            </div>
-          </div>
+              <div className="bg-gray-900/80 backdrop-blur-sm rounded-xl border border-gray-700/50 p-6">
+                {/* Heading */}
+                <div className="flex flex-col">
+                  <h3 className="text-2xl font-bold text-white font-mono relative">
+                    <span className="text-purple-400">|-|</span> Not Another Boring Bio
+                  </h3>
+                  <span className="text-gray-400 text-xs mt-1 font-mono ">
+                    In Short (Because You&apos;re Busy)
+                  </span>
+                </div>
+
+                <div className="text-gray-300 space-y-3 leading-relaxed mt-4">
+                  <p>
+                    Computer Science student  building things that click, scroll, and occasionally impress.
+                  </p>
+                  <p>
+                    Writes code. Breaks less. Learns fast.
+                  </p>
+                  <p>
+                    Trained through internships, fueled by curiosity. Backend, Frontend, and everything in between, I&apos;ve done a bit of it all.
+                  </p>
+
+                  {/* Internship Grid */}
+                  <div className="grid sm:grid-cols-2 gap-4 mt-4">
+                    <div className="p-3 rounded-lg border border-gray-700/30 backdrop-blur-sm">
+                      <h4 className="font-semibold text-white text-sm">Backend Intern</h4>
+                      <p className="text-purple-400 text-xs">1Stop.ai (Oct–Dec 2024)</p>
+                    </div>
+                    <div className="p-3 rounded-lg border border-gray-700/30 backdrop-blur-sm">
+                      <h4 className="font-semibold text-white text-sm">Full Stack Intern</h4>
+                      <p className="text-purple-400 text-xs">AICTE Virtual Internship (Oct–Dec 2024)</p>
+                    </div>
+                  </div>
+
+                  {/* Extra-curricular Grid */}
+                  <div className="grid sm:grid-cols-2 gap-4 mt-4">
+                    <div className="p-3 rounded-lg border border-gray-700/30 backdrop-blur-sm">
+                      <h4 className="font-semibold text-white text-sm">Vice Secretary</h4>
+                      <p className="text-purple-400 text-xs">Futurix, SRMIST</p>
+                    </div>
+                    <div className="p-3 rounded-lg border border-gray-700/30 backdrop-blur-sm">
+                      <h4 className="font-semibold text-white text-sm">Technical Member</h4>
+                      <p className="text-purple-400 text-xs">CSI SRM & Aaruush</p>
+                    </div>
+                  </div>
+
+                  <p className="text-purple-400 font-semibold mt-4 font-mono">
+                    Dependencies = [Laptop, Curiosity, Caffeine]
+                  </p>
+                </div>
+              </div>
+
+
 
                         {/* Interactive Console */}
             <div className="bg-gray-900/90 backdrop-blur-sm rounded-xl border border-gray-700/50 overflow-hidden">
@@ -387,34 +427,48 @@ const AboutMe = () => {
             </div>
 
             {/* Certifications Section */}
-<div className="bg-gray-900/80 backdrop-blur-sm rounded-xl border border-gray-700/50 p-6">
+<div className="bg-gray-900/80 backdrop-blur-sm rounded-xl border border-gray-700/50 p-6 py-4">
   <h4 className="text-xl font-bold text-white mb-6 font-mono flex items-center gap-2">
     <span className="text-green-400">#</span> Certifications
   </h4>
 
-  <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
-    {certificates.map((cert) => (
-      <motion.div
-        key={cert.id}
-        onClick={() => setSelectedCertificate(cert)}
-        className="bg-gray-800/50 rounded-lg p-3 flex flex-col items-center text-center cursor-pointer
-                   hover:scale-105 hover:shadow-md hover:shadow-purple-500/20 transition-all duration-300"
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.97 }}
-      >
-        <div className="w-14 h-14 rounded-full overflow-hidden mb-2 flex items-center justify-center bg-gradient-to-tr from-purple-500 to-blue-500 shadow-sm">
-          <Image
-            src={cert.image}
-            alt={cert.title}
-            width={56}
-            height={56}
-            className="object-contain"
-          />
-        </div>
-        <div className="text-white font-medium text-sm">{cert.title}</div>
-        <div className="text-gray-400 text-xs">{cert.issuer}</div>
-      </motion.div>
-    ))}
+  {/* Logo Cloud */}
+  <div className="relative w-full flex flex-wrap justify-center gap-10 py-2">
+    {certificates.map((cert) => {
+      const rotation = (Math.random() - 0.5) * 1.2; // initial rotation
+      const floatDuration = 4 + Math.random() * 1.1; // random float speed
+
+      return (
+        <motion.div
+          key={cert.id}
+          onClick={() => setSelectedCertificate(cert)}
+          className="w-20 flex flex-col items-center cursor-pointer"
+          initial={{ y: 0, rotate: rotation }}
+          animate={{ y: [0, -6, 0], rotate: [rotation, rotation + 3, rotation] }}
+          transition={{
+            duration: floatDuration,
+            repeat: Infinity,
+            repeatType: "loop",
+            ease: "easeInOut",
+          }}
+          whileHover={{ scale: 1.15, rotate: 0, zIndex: 10 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          {/* Logo */}
+          <div className="w-25 h-25 rounded-lg backdrop-blur-[2px] border border-gray-700/30 flex items-center justify-center shadow-md bg-gray-800/40">
+            <Image
+              src={cert.logo}
+              alt={cert.title}
+              width={100}
+              height={100}
+              className="object-cover rounded-lg"
+            />
+          </div>
+          {/* Title */}
+          <div className="text-white text-xs text-center mt-1">{cert.title}</div>
+        </motion.div>
+      );
+    })}
   </div>
 </div>
 
@@ -429,7 +483,7 @@ const AboutMe = () => {
       onClick={() => setSelectedCertificate(null)}
     >
       <motion.div
-        className="bg-gray-900 rounded-xl border border-gray-700/50 w-full max-w-lg p-5 relative"
+        className="bg-gray-900 rounded-xl border border-gray-700/50 w-full max-w-2xl p-6 relative"
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.8, opacity: 0 }}
@@ -442,19 +496,19 @@ const AboutMe = () => {
           ✕
         </button>
 
-        <h3 className="text-lg font-bold text-white mb-4">{selectedCertificate.title}</h3>
+        <h3 className="text-xl font-bold text-white mb-4 text-center">{selectedCertificate.title}</h3>
 
-        <div className="w-full max-h-[350px] flex items-center justify-center overflow-hidden rounded-lg mb-3">
+        <div className="w-full max-h-[400px] flex items-center justify-center overflow-hidden rounded-lg mb-4">
           <Image
             src={selectedCertificate.image}
             alt={selectedCertificate.title}
-            width={500}
-            height={350}
+            width={600}
+            height={400}
             className="object-contain"
           />
         </div>
 
-        <p className="text-gray-300 mb-2">
+        <p className="text-gray-300 mb-2 text-center">
           Issued by: <span className="text-green-400">{selectedCertificate.issuer}</span>
         </p>
 
@@ -463,16 +517,17 @@ const AboutMe = () => {
             href={selectedCertificate.credentialUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center px-3 py-1.5 rounded-lg bg-green-600 text-white text-sm hover:bg-green-500 transition-colors"
+            className="mx-auto block w-max px-4 py-2 rounded-lg bg-green-600 text-white text-sm hover:bg-green-500 transition-colors"
           >
             View Credential
-            <ExternalLink className="w-4 h-4 ml-1" />
+            <ExternalLink className="w-4 h-4 ml-1 inline-block" />
           </a>
         )}
       </motion.div>
     </motion.div>
   )}
 </AnimatePresence>
+
 
 
           </motion.div>
