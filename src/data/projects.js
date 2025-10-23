@@ -3,11 +3,13 @@ export const projectsData = [
   {
     id: 1,
     title: "SATYAM",
-    description: "My personal webpage built with TypeScript, showcasing skills, projects, and portfolio highlights.",
-    image: "/projects/satyam.png",
+    description: "My personal portfolio webpage built with TypeScript, showcasing skills, projects, and portfolio highlights.",
+    image: "/images/projectimage/img-1.jpeg",
     liveDemo: "",
     sourceCode: "https://github.com/Nittaany/SATYAM",
     techStack: [
+      { name: "Next.js", color: "text-white", bgColor: "bg-gray-700/20" },
+      { name: "Tailwind", color: "text-teal-400", bgColor: "bg-teal-500/20" },
       { name: "TypeScript", color: "text-blue-400", bgColor: "bg-blue-500/20" }
     ],
     category: "Web Apps",
@@ -16,12 +18,14 @@ export const projectsData = [
   },
   {
     id: 2,
-    title: "EVolve_ZENITH_SIH1392",
-    description: "A technical project developed as part of the SIH competition for smart solutions.",
-    image: "/projects/evvolve-zenith.png",
-    liveDemo: "",
-    sourceCode: "https://github.com/Nittaany/EVolve_ZENITH_SIH1392",
+    title: "E-Volve (E-Waste Disposal Management)",
+    description: "A technical project developed as part of the SMART INDIA HACKATHON for smart solutions.",
+    image: "/images/projectimage/img-2.jpeg",
+    liveDemo: "https://evolve-mavericks.vercel.app/",
+    sourceCode: "https://github.com/Shantanu993/EVolve_ZENITH_SIH1392.git",
     techStack: [
+      { name: "Next.js", color: "text-white", bgColor: "bg-gray-700/20" },
+      { name: "Tailwind", color: "text-teal-400", bgColor: "bg-teal-500/20" },
       { name: "TypeScript", color: "text-blue-400", bgColor: "bg-blue-500/20" }
     ],
     category: "Web Apps",
@@ -31,8 +35,8 @@ export const projectsData = [
   {
     id: 3,
     title: "Lingua-Box",
-    description: "Summarizes text or PDFs, translates to regional languages, and converts content to speech.",
-    image: "/projects/linguabox.png",
+    description: "Summarizes text or PDFs, translates to multiple languages, and converts content to speech.",
+    image: "/images/projectimage/img-3.jpeg",
     liveDemo: "",
     sourceCode: "https://github.com/Nittaany/Lingua-Box",
     techStack: [
@@ -46,23 +50,9 @@ export const projectsData = [
   },
   {
     id: 4,
-    title: "Cloud-Airlines",
-    description: "Airline management system project (web app) for booking and flight management.",
-    image: "/projects/cloud-airlines.png",
-    liveDemo: "",
-    sourceCode: "https://github.com/Nittaany/Cloud-Airlines",
-    techStack: [
-      { name: "TypeScript", color: "text-blue-400", bgColor: "bg-blue-500/20" }
-    ],
-    category: "Web Apps",
-    featured: false,
-    status: "completed"
-  },
-  {
-    id: 5,
-    title: "Expense_Ledger",
+    title: "Expense Ledger",
     description: "Budget tracking system built with PHP & MySQL to manage income, expenses, and savings.",
-    image: "/projects/expenseledger.png",
+    image: "/images/projectimage/img-4.jpeg",
     liveDemo: "",
     sourceCode: "https://github.com/Nittaany/Expense_Ledger",
     techStack: [
@@ -75,11 +65,11 @@ export const projectsData = [
     status: "completed"
   },
   {
-    id: 6,
+    id: 5,
     title: "Water-Level-Controller",
-    description: "Smart water level monitoring system with pump control using ultrasonic sensor and motor.",
-    image: "/projects/water-level-controller.png",
-    liveDemo: "",
+    description: "Smart water level monitoring system with pump control using sensors and motors.",
+    image: "/images/projectimage/img-5.jpeg",
+    liveDemo: "https://drive.google.com/file/d/1TBmy9M0k2LNoWJ65NNz6bQ8MHIUsC6q0/view?usp=drive_link",
     sourceCode: "https://github.com/Nittaany/Water-Level-Controller",
     techStack: [
       { name: "C++", color: "text-gray-400", bgColor: "bg-gray-500/20" },
@@ -90,7 +80,7 @@ export const projectsData = [
     status: "completed"
   },
   {
-    id: 7,
+    id: 6,
     title: "Planetary",
     description: "Space-themed interactive web app built with Next.js, Three.js, and Tailwind CSS.",
     image: "/projects/planetary.png",
@@ -106,7 +96,7 @@ export const projectsData = [
     status: "completed"
   },
   {
-    id: 8,
+    id: 7,
     title: "CountDown-Timer---Canvas",
     description: "Canvas-based countdown timer project for frontend practice.",
     image: "/projects/countdown-timer.png",
@@ -121,7 +111,7 @@ export const projectsData = [
     status: "completed"
   },
   {
-    id: 9,
+    id: 8,
     title: "Hotel-Management-System---Laravel",
     description: "Hotel management system using Laravel framework for backend operations.",
     image: "/projects/hotel-management.png",
@@ -136,7 +126,7 @@ export const projectsData = [
     status: "completed"
   },
   {
-    id: 10,
+    id: 9,
     title: "Task-Manager---Laravel",
     description: "Task management system built using Laravel for handling daily tasks efficiently.",
     image: "/projects/task-manager.png",
@@ -147,6 +137,20 @@ export const projectsData = [
       { name: "Laravel", color: "text-red-400", bgColor: "bg-red-500/20" }
     ],
     category: "Full Stack",
+    featured: false,
+    status: "completed"
+  },
+  {
+    id: 10,
+    title: "Cloud-Airlines",
+    description: "Airline management system project (web app) for booking and flight management.",
+    image: "/images/projectimage/projectimg-1.jpeg",
+    liveDemo: "",
+    sourceCode: "https://github.com/Nittaany/Cloud-Airlines",
+    techStack: [
+      { name: "TypeScript", color: "text-blue-400", bgColor: "bg-blue-500/20" }
+    ],
+    category: "Web Apps",
     featured: false,
     status: "completed"
   },
