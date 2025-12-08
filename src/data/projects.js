@@ -10,6 +10,7 @@ export const projectsData = [
     techStack: [
       { name: "Next.js", color: "text-white", bgColor: "bg-gray-700/20" },
       { name: "Tailwind", color: "text-teal-400", bgColor: "bg-teal-500/20" },
+      { name: "JavaScript", color: "text-yellow-400", bgColor: "bg-yellow-500/20" },
       { name: "TypeScript", color: "text-blue-400", bgColor: "bg-blue-500/20" }
     ],
     category: "Web Apps",
@@ -26,7 +27,7 @@ export const projectsData = [
     techStack: [
       { name: "Next.js", color: "text-white", bgColor: "bg-gray-700/20" },
       { name: "Tailwind", color: "text-teal-400", bgColor: "bg-teal-500/20" },
-      { name: "TypeScript", color: "text-blue-400", bgColor: "bg-blue-500/20" }
+      { name: "JavaScript", color: "text-yellow-400", bgColor: "bg-yellow-500/20" }
     ],
     category: "Web Apps",
     featured: true,
@@ -37,12 +38,13 @@ export const projectsData = [
     title: "Lingua-Box",
     description: "Summarizes text or PDFs, translates to multiple languages, and converts content to speech.",
     image: "/images/projectimage/img-3.jpeg",
-    liveDemo: "",
+    liveDemo: "https://colab.research.google.com/drive/1r5hWtTV8hk15BLNJnqqGM_ktYV_LtVwZ",
     sourceCode: "https://github.com/Nittaany/Lingua-Box",
     techStack: [
       { name: "Python", color: "text-yellow-400", bgColor: "bg-yellow-500/20" },
-      { name: "NLP", color: "text-green-400", bgColor: "bg-green-500/20" },
-      { name: "Text-to-Speech", color: "text-purple-400", bgColor: "bg-purple-500/20" }
+      { name: "Gradio", color: "text-pink-400", bgColor: "bg-pink-500/20" },
+      { name: "Text-to-Speech", color: "text-purple-400", bgColor: "bg-purple-500/20" },
+      { name: "NLP", color: "text-green-400", bgColor: "bg-green-500/20" }
     ],
     category: "Web Apps",
     featured: true,
@@ -66,7 +68,7 @@ export const projectsData = [
   },
   {
     id: 5,
-    title: "Water-Level-Controller",
+    title: "Water Level Controller",
     description: "Smart water level monitoring system with pump control using sensors and motors.",
     image: "/images/projectimage/img-5.jpeg",
     liveDemo: "https://drive.google.com/file/d/1TBmy9M0k2LNoWJ65NNz6bQ8MHIUsC6q0/view?usp=drive_link",
@@ -83,8 +85,8 @@ export const projectsData = [
     id: 6,
     title: "Planetary",
     description: "Space-themed interactive web app built with Next.js, Three.js, and Tailwind CSS.",
-    image: "/projects/planetary.png",
-    liveDemo: "",
+    image: "/images/projectimage/img-6.jpeg",
+    liveDemo: "https://planetary-webapp.vercel.app/",
     sourceCode: "https://github.com/Nittaany/Planetary",
     techStack: [
       { name: "JavaScript", color: "text-yellow-400", bgColor: "bg-yellow-500/20" },
@@ -97,14 +99,16 @@ export const projectsData = [
   },
   {
     id: 7,
-    title: "CountDown-Timer---Canvas",
+    title: "CountDown Timer - Canvas",
     description: "Canvas-based countdown timer project for frontend practice.",
-    image: "/projects/countdown-timer.png",
-    liveDemo: "",
+    image: "/images/projectimage/img-7.jpeg",
+    liveDemo: "https://nittaany.github.io/CountDown-Timer---Canvas/",
     sourceCode: "https://github.com/Nittaany/CountDown-Timer---Canvas",
     techStack: [
-      { name: "JavaScript", color: "text-yellow-400", bgColor: "bg-yellow-500/20" },
-      { name: "CSS", color: "text-blue-400", bgColor: "bg-blue-500/20" }
+      { name: "HTML", color: "text-orange-400", bgColor: "bg-orange-500/20" },
+      { name: "CSS", color: "text-blue-400", bgColor: "bg-blue-500/20" },
+      { name: "JavaScript", color: "text-yellow-400", bgColor: "bg-yellow-500/20" }
+      
     ],
     category: "Web Apps",
     featured: false,
@@ -112,9 +116,9 @@ export const projectsData = [
   },
   {
     id: 8,
-    title: "Hotel-Management-System---Laravel",
+    title: "Hotel Management System - Laravel",
     description: "Hotel management system using Laravel framework for backend operations.",
-    image: "/projects/hotel-management.png",
+    image: "/images/projectimage/img-8.jpeg",
     liveDemo: "",
     sourceCode: "https://github.com/Nittaany/Hotel-Management-System---Laravel",
     techStack: [
@@ -127,9 +131,9 @@ export const projectsData = [
   },
   {
     id: 9,
-    title: "Task-Manager---Laravel",
+    title: "Task-Manager - Laravel",
     description: "Task management system built using Laravel for handling daily tasks efficiently.",
-    image: "/projects/task-manager.png",
+    image: "/images/projectimage/img-9.jpeg",
     liveDemo: "",
     sourceCode: "https://github.com/Nittaany/Task-Manager---Laravel",
     techStack: [
@@ -142,13 +146,15 @@ export const projectsData = [
   },
   {
     id: 10,
-    title: "Cloud-Airlines",
-    description: "Airline management system project (web app) for booking and flight management.",
-    image: "/images/projectimage/projectimg-1.jpeg",
+    title: "Weather App - Python",
+    description: "Weather app built using Python and OpenWeatherMap API to fetch and display real-time weather data.",
+    image: "/images/projectimage/img-10.jpeg",
     liveDemo: "",
-    sourceCode: "https://github.com/Nittaany/Cloud-Airlines",
+    sourceCode: "https://github.com/Nittaany/Weather_Python",
     techStack: [
-      { name: "TypeScript", color: "text-blue-400", bgColor: "bg-blue-500/20" }
+      { name: "Python", color: "text-yellow-400", bgColor: "bg-yellow-500/20" },
+      { name: "API", color: "text-sky-400", bgColor: "bg-sky-500/20" },
+      { name: "Tkinter", color: "text-green-400", bgColor: "bg-green-500/20" }
     ],
     category: "Web Apps",
     featured: false,
@@ -156,14 +162,15 @@ export const projectsData = [
   },
   {
     id: 11,
-    title: "HK-clone",
+    title: "Humankind - Clone",
     description: "Frontend clone of the Humankind website for learning purposes.",
-    image: "/projects/hk-clone.png",
-    liveDemo: "",
+    image: "/images/projectimage/img-11.jpeg",
+    liveDemo: "https://nittaany.github.io/HK-clone/",
     sourceCode: "https://github.com/Nittaany/HK-clone",
     techStack: [
       { name: "HTML", color: "text-orange-400", bgColor: "bg-orange-500/20" },
-      { name: "CSS", color: "text-blue-400", bgColor: "bg-blue-500/20" }
+      { name: "CSS", color: "text-blue-400", bgColor: "bg-blue-500/20" },
+      { name: "JavaScript", color: "text-yellow-400", bgColor: "bg-yellow-500/20" }
     ],
     category: "Web Apps",
     featured: false,
@@ -171,11 +178,11 @@ export const projectsData = [
   },
   {
     id: 12,
-    title: "NatureBytes",
-    description: "Hackathon prototype promoting environmental awareness through interactive web interfaces.",
-    image: "/projects/naturebytes.png",
-    liveDemo: "",
-    sourceCode: "https://github.com/Nittaany/NatureBytes",
+    title: "Mann Maaujii - Wander with Heart",
+    description: "Simple Expo app prototype showcasing basic frontend concepts and responsiveness.",
+    image: "/images/projectimage/img-15.jpeg",
+    liveDemo: "https://nittaany.github.io/MM/",
+    sourceCode: "https://github.com/Nittaany/MM",
     techStack: [
       { name: "HTML", color: "text-orange-400", bgColor: "bg-orange-500/20" },
       { name: "CSS", color: "text-blue-400", bgColor: "bg-blue-500/20" },
@@ -187,9 +194,9 @@ export const projectsData = [
   },
   {
     id: 13,
-    title: "PHP-To-do-List",
+    title: "To-do-List - PHP",
     description: "Simple To-Do List application built with PHP for learning CRUD operations.",
-    image: "/projects/php-todo.png",
+    image: "/images/projectimage/img-13.jpeg",
     liveDemo: "",
     sourceCode: "https://github.com/Nittaany/PHP-To-do-List",
     techStack: [
@@ -201,27 +208,13 @@ export const projectsData = [
     featured: false,
     status: "completed"
   },
-  {id: 14,
-    title: "piggyDice",
-    description: "Strategic two-player dice game built with frontend technologies for interactive gameplay.",
-    image: "/projects/piggydice.png",
-    liveDemo: "",
-    sourceCode: "https://github.com/Nittaany/piggyDice",
-    techStack: [
-      { name: "CSS", color: "text-blue-400", bgColor: "bg-blue-500/20" },
-      { name: "JavaScript", color: "text-yellow-400", bgColor: "bg-yellow-500/20" }
-    ],
-    category: "Web Apps",
-    featured: false,
-    status: "completed"
-  },
   {
-    id: 15,
-    title: "MM",
-    description: "Simple Expo app prototype showcasing basic frontend concepts and responsiveness.",
-    image: "/projects/mm.png",
-    liveDemo: "",
-    sourceCode: "https://github.com/Nittaany/MM",
+    id: 14,
+    title: "Piggy - Dice Game",
+    description: "Strategic two-player dice game built with frontend technologies for interactive gameplay.",
+    image: "/images/projectimage/img-14.jpeg",
+    liveDemo: "https://nittaany.github.io/piggyDice/",
+    sourceCode: "https://github.com/Nittaany/piggyDice",
     techStack: [
       { name: "HTML", color: "text-orange-400", bgColor: "bg-orange-500/20" },
       { name: "CSS", color: "text-blue-400", bgColor: "bg-blue-500/20" },
@@ -235,8 +228,8 @@ export const projectsData = [
     id: 16,
     title: "Number-Guess",
     description: "Old-school number guessing game built with HTML, CSS, and JavaScript for learning frontend interaction.",
-    image: "/projects/number-guess.png",
-    liveDemo: "",
+    image: "/images/projectimage/img-16.jpeg",
+    liveDemo: "https://nittaany.github.io/Number-Guess/",
     sourceCode: "https://github.com/Nittaany/Number-Guess",
     techStack: [
       { name: "HTML", color: "text-orange-400", bgColor: "bg-orange-500/20" },
@@ -248,66 +241,22 @@ export const projectsData = [
     status: "completed"
   },
   {
-    id: 17,
-    title: "Weather_Python",
-    description: "Weather app built using Python and OpenWeatherMap API to fetch and display real-time weather data.",
-    image: "/projects/weather-python.png",
-    liveDemo: "",
-    sourceCode: "https://github.com/Nittaany/Weather_Python",
-    techStack: [
-      { name: "Python", color: "text-yellow-400", bgColor: "bg-yellow-500/20" },
-      { name: "API", color: "text-sky-400", bgColor: "bg-sky-500/20" },
-      { name: "Tkinter", color: "text-green-400", bgColor: "bg-green-500/20" }
-    ],
-    category: "Web Apps",
-    featured: false,
-    status: "completed"
-  },
-  {
-    id: 18,
-    title: "ME",
-    description: "My first HTML website, introducing basic web development concepts and structure.",
-    image: "/projects/me.png",
-    liveDemo: "",
-    sourceCode: "https://github.com/Nittaany/ME",
-    techStack: [
-      { name: "HTML", color: "text-orange-400", bgColor: "bg-orange-500/20" }
-    ],
-    category: "Web Apps",
-    featured: false,
-    status: "completed"
-  },
-  {
-    id: 19,
-    title: "newme",
-    description: "Introductory second website project built with HTML & CSS to improve frontend skills.",
-    image: "/projects/newme.png",
-    liveDemo: "",
-    sourceCode: "https://github.com/Nittaany/newme",
+    id: 15,
+    title: "NatureBytes",
+    description: "Hackathon prototype promoting environmental awareness through interactive web interfaces.",
+    image: "/images/projectimage/img-12.jpeg",
+    liveDemo: "https://nittaany.github.io/NatureBytes/",
+    sourceCode: "https://github.com/Nittaany/NatureBytes",
     techStack: [
       { name: "HTML", color: "text-orange-400", bgColor: "bg-orange-500/20" },
-      { name: "CSS", color: "text-blue-400", bgColor: "bg-blue-500/20" }
+      { name: "CSS", color: "text-blue-400", bgColor: "bg-blue-500/20" },
+      { name: "JavaScript", color: "text-yellow-400", bgColor: "bg-yellow-500/20" }
     ],
     category: "Web Apps",
     featured: false,
     status: "completed"
-  },
-  {
-    id: 20,
-    title: "My-Portfolio-Website - V1",
-    description: "Personal portfolio website developed in Next.js to showcase projects and skills.",
-    image: "/projects/my-portfolio.png",
-    liveDemo: "",
-    sourceCode: "https://github.com/Nittaany/My-Portfolio-Website",
-    techStack: [
-      { name: "JavaScript", color: "text-yellow-400", bgColor: "bg-yellow-500/20" },
-      { name: "Next.js", color: "text-white", bgColor: "bg-gray-700/20" },
-      { name: "Tailwind", color: "text-teal-400", bgColor: "bg-teal-500/20" }
-    ],
-    category: "Web Apps",
-    featured: true,
-    status: "completed"
   }
+ 
 ];
 
 // Filter categories for the filter tabs

@@ -1,12 +1,13 @@
 "use client";
-import React, { useState, useRef, useEffect } from 'react';
-import { 
-  Mail, 
-  User, 
-  MessageSquare, 
-  Send, 
-  CheckCircle, 
-  AlertCircle, 
+import emailjs from "@emailjs/browser";
+import React, { useState, useRef, useEffect } from "react";
+import {
+  Mail,
+  User,
+  MessageSquare,
+  Send,
+  CheckCircle,
+  AlertCircle,
   Loader,
   Download,
   Coffee,
@@ -17,8 +18,8 @@ import {
   Monitor,
   Github,
   Linkedin,
-  Twitter
-} from 'lucide-react';
+  Twitter,
+} from "lucide-react";
 
 interface FormData {
   name: string;
@@ -31,45 +32,51 @@ interface FormErrors {
   [key: string]: string;
 }
 
+const SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID ?? "";
+const TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID ?? "";
+const PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY ?? "";
+
 const ContactMe = () => {
   const [formData, setFormData] = useState<FormData>({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
   });
-  
-  const [focusedField, setFocusedField] = useState<string>('');
+
+  const [focusedField, setFocusedField] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [submitStatus, setSubmitStatus] = useState<string>('');
+  const [submitStatus, setSubmitStatus] = useState<string>("");
   const [errors, setErrors] = useState<FormErrors>({});
-  const [terminalText, setTerminalText] = useState('');
+  const [terminalText, setTerminalText] = useState("");
   const [isVisible, setIsVisible] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  
+  const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
+
   const sectionRef = useRef<HTMLDivElement>(null);
-  
-  // Terminal animation
+
+  // Terminal animation (kept as you had it)
   useEffect(() => {
     const commands = [
-      '> npm install satyam-dev',
-      '> Portfolio installed successfully 🚀',
-      '> Available for opportunities... 📣',
-      '> Ready to collaborate 💫'
+      "> npm install satyam-dev",
+      "> Portfolio installed successfully 🚀",
+      "> Available for opportunities... 📣",
+      "> Ready to collaborate 💫",
     ];
-    
+
     let commandIndex = 0;
     let charIndex = 0;
-    
+    let cancelled = false;
+
     const typeWriter = () => {
+      if (cancelled) return;
       if (commandIndex < commands.length) {
         if (charIndex < commands[commandIndex].length) {
-          setTerminalText(prev => prev + commands[commandIndex][charIndex]);
+          setTerminalText((prev) => prev + commands[commandIndex][charIndex]);
           charIndex++;
           setTimeout(typeWriter, 100);
         } else {
           setTimeout(() => {
-            setTerminalText(prev => prev + '\n');
+            setTerminalText((prev) => prev + "\n");
             commandIndex++;
             charIndex = 0;
             if (commandIndex < commands.length) {
@@ -80,16 +87,19 @@ const ContactMe = () => {
       } else {
         // Reset after completion
         setTimeout(() => {
-          setTerminalText('');
+          setTerminalText("");
           commandIndex = 0;
           charIndex = 0;
           setTimeout(typeWriter, 2000);
         }, 5000);
       }
     };
-    
+
     const timer = setTimeout(typeWriter, 2000);
-    return () => clearTimeout(timer);
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
   }, []);
 
   // Intersection Observer for animations
@@ -112,78 +122,111 @@ const ContactMe = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Mouse tracking for interactive background
+  // Mouse tracking using requestAnimationFrame (throttled)
   useEffect(() => {
+    let rafId: number | null = null;
+
     const handleMouseMove = (e: MouseEvent) => {
       if (!sectionRef.current) return;
       const rect = sectionRef.current.getBoundingClientRect();
-      setMousePosition({
-        x: ((e.clientX - rect.left) / rect.width) * 100,
-        y: ((e.clientY - rect.top) / rect.height) * 100
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        setMousePosition({ x: Math.max(0, Math.min(100, x)), y: Math.max(0, Math.min(100, y)) });
       });
     };
 
     const section = sectionRef.current;
     if (section) {
-      section.addEventListener('mousemove', handleMouseMove);
-      return () => section.removeEventListener('mousemove', handleMouseMove);
+      section.addEventListener("mousemove", handleMouseMove);
+      return () => {
+        section.removeEventListener("mousemove", handleMouseMove);
+        if (rafId) cancelAnimationFrame(rafId);
+      };
     }
   }, []);
 
   const handleChange = (name: string, value: string) => {
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
     if (errors[name]) {
-      setErrors(prev => ({ ...prev, [name]: '' }));
+      setErrors((prev) => ({ ...prev, [name]: "" }));
     }
   };
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
-    
-    if (!formData.name.trim()) newErrors.name = 'Name is required';
-    if (!formData.email.trim()) newErrors.email = 'Email is required';
-    else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Please enter a valid email';
-    if (!formData.subject.trim()) newErrors.subject = 'Subject is required';
-    if (!formData.message.trim()) newErrors.message = 'Message is required';
+
+    if (!formData.name.trim()) newErrors.name = "Name is required";
+    if (!formData.email.trim()) newErrors.email = "Email is required";
+    else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = "Please enter a valid email";
+    if (!formData.subject.trim()) newErrors.subject = "Subject is required";
+    if (!formData.message.trim()) newErrors.message = "Message is required";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
-    
+
+    // Guard: make sure env vars exist
+    if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
+      console.error("EmailJS env vars missing. Make sure NEXT_PUBLIC_EMAILJS_* are set.");
+      setSubmitStatus("error");
+      // Friendly message for UI users
+      setTimeout(() => setSubmitStatus(""), 5000);
+      return;
+    }
+
     setIsSubmitting(true);
-    // Simulate API call
-    setTimeout(() => {
-      setSubmitStatus('success');
+    setSubmitStatus("");
+
+    try {
+      await emailjs.send(
+        SERVICE_ID,
+        TEMPLATE_ID,
+        {
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          time: new Date().toLocaleString(), // send time so template can use it
+        },
+        PUBLIC_KEY
+      );
+
+      setSubmitStatus("success");
+      setFormData({ name: "", email: "", subject: "", message: "" });
+    } catch (error) {
+      console.error("EmailJS Error:", error);
+      setSubmitStatus("error");
+    } finally {
       setIsSubmitting(false);
-      setFormData({ name: '', email: '', subject: '', message: '' });
-      setTimeout(() => setSubmitStatus(''), 5000);
-    }, 2000);
+      setTimeout(() => setSubmitStatus(""), 5000);
+    }
   };
 
   const handleDownloadCV = () => {
-    // Simulate CV download
-    const link = document.createElement('a');
-    link.href = '/path-to-your-cv.pdf'; // Replace with actual CV path
-    link.download = 'Satyam_Developer_Resume.pdf';
+    const link = document.createElement("a");
+    link.href = "https://drive.google.com/uc?export=download&id=1mgVZBLUCuAtVY_QhzuJLOWosUOJqUE1V";
+    link.download = "Satyam_Developer_Resume.pdf";
     link.click();
   };
 
   const stats = [
     { icon: <Award className="w-5 h-5" />, label: "10+ Projects Completed", color: "text-blue-400" },
     { icon: <Briefcase className="w-5 h-5" />, label: "2 Internships", color: "text-green-400" },
-    { icon: <Monitor className="w-5 h-5" />, label: "Frontend Focused", color: "text-purple-400" }
+    { icon: <Monitor className="w-5 h-5" />, label: "Frontend Focused", color: "text-purple-400" },
   ];
 
+  // UI-level flag for missing env (so user sees why form won't send)
+  const envMissing = !SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY;
+
   return (
-    <section 
-      id='contact'
-      ref={sectionRef}
-      className="relative min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800 py-20 px-6 overflow-hidden"
-    >
+    <section id="contact" ref={sectionRef} className="relative min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800 py-20 px-6 overflow-hidden">
       {/* Animated Background Elements */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl animate-pulse" />
@@ -192,62 +235,47 @@ const ContactMe = () => {
       </div>
 
       {/* Interactive Mouse Gradient */}
-      <div 
+      <div
         className="absolute inset-0 opacity-30 pointer-events-none"
         style={{
-          background: `radial-gradient(600px circle at ${mousePosition.x}% ${mousePosition.y}%, 
-                      rgba(139, 92, 246, 0.15), 
-                      rgba(59, 130, 246, 0.1), 
-                      transparent 50%)`
+          background: `radial-gradient(600px circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(139,92,246,0.15), rgba(59,130,246,0.1), transparent 50%)`,
         }}
       />
 
       <div className="relative max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-16 items-center min-h-screen">
-          
           {/* Left Side - Visual/Intro */}
-          <div className={`space-y-8 transition-all duration-1000 ${
-            isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
-          }`}>
-            
+          <div
+            className={`space-y-8 transition-all duration-1000 ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"}`}
+          >
             {/* Main Headline */}
             <div className="space-y-6">
               <div className="inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-full border border-purple-500/30 backdrop-blur-sm">
                 <Coffee className="w-4 h-4 text-purple-400" />
                 <span className="text-sm text-purple-300">Available for opportunities</span>
               </div>
-              
+
               <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-                <span className="bg-gradient-to-r from-white via-purple-200 to-blue-300 bg-clip-text text-transparent">
-                  Let&apos;s Build Something
-                </span>
+                <span className="bg-gradient-to-r from-white via-purple-200 to-blue-300 bg-clip-text text-transparent">Let&apos;s Build Something</span>
                 <br />
-                <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-                  Amazing Together
-                </span>
+                <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Amazing Together</span>
               </h1>
-              
+
               <p className="text-xl text-gray-300 leading-relaxed max-w-lg">
-                I&apos;m a passionate frontend developer who loves creating smooth UX and modern designs. 
-                Always open to discussing exciting roles, collaborations, and innovative projects.
-              </p>
-              
-              <p className="text-lg text-gray-400 max-w-lg">
-                Looking for a developer who&apos;s passionate about clean code, pixel-perfect designs, 
-                and cutting-edge technologies? Let&apos;s connect and create something extraordinary.
+                I&apos;m a developer who&apos;s always open for discussions, exciting roles, collaborations, and innovative projects.
+
               </p>
             </div>
 
             {/* Stats Badges */}
             <div className="flex flex-wrap gap-4">
               {stats.map((stat, index) => (
-                <div 
+                <div
                   key={index}
-                  className={`flex items-center space-x-3 px-4 py-3 bg-gray-800/40 backdrop-blur-sm rounded-2xl border border-gray-700/50 hover:border-gray-600/50 transition-all duration-300 hover:scale-105 delay-${index * 100}`}
+                  style={{ transitionDelay: `${index * 100}ms` }} // fixed: dynamic delay via inline style
+                  className="flex items-center space-x-3 px-4 py-3 bg-gray-800/40 backdrop-blur-sm rounded-2xl border border-gray-700/50 hover:border-gray-600/50 transition-all duration-300 hover:scale-105"
                 >
-                  <div className={stat.color}>
-                    {stat.icon}
-                  </div>
+                  <div className={stat.color}>{stat.icon}</div>
                   <span className="text-gray-300 font-medium text-sm">{stat.label}</span>
                 </div>
               ))}
@@ -281,13 +309,13 @@ const ContactMe = () => {
                   <span>Download Resume</span>
                 </div>
               </button>
-              
+
               {/* Social Links */}
               <div className="flex items-center space-x-4">
                 {[
-                  { icon: <Github className="w-5 h-5" />, href: "#", label: "GitHub" },
-                  { icon: <Linkedin className="w-5 h-5" />, href: "#", label: "LinkedIn" },
-                  { icon: <Twitter className="w-5 h-5" />, href: "#", label: "Twitter" }
+                  { icon: <Github className="w-5 h-5" />, href: "https://github.com/Nittaany/", label: "GitHub" },
+                  { icon: <Linkedin className="w-5 h-5" />, href: "https://www.linkedin.com/in/SATYAM-c/", label: "LinkedIn" },
+                  { icon: <Twitter className="w-5 h-5" />, href: "https://x.com/nittaany", label: "Twitter" },
                 ].map((social, index) => (
                   <a
                     key={index}
@@ -303,10 +331,7 @@ const ContactMe = () => {
           </div>
 
           {/* Right Side - Contact Form */}
-          <div className={`transition-all duration-1000 delay-300 ${
-            isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'
-          }`}>
-            
+          <div className={`transition-all duration-1000 delay-300 ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"}`}>
             {/* Collaboration Pitch */}
             <div className="mb-8 p-6 bg-gradient-to-r from-purple-900/30 to-blue-900/30 backdrop-blur-sm rounded-2xl border border-purple-500/20">
               <div className="flex items-center space-x-2 mb-3">
@@ -314,40 +339,44 @@ const ContactMe = () => {
                 <h3 className="text-lg font-semibold text-white">Let&apos;s Collaborate</h3>
               </div>
               <p className="text-gray-300 text-sm leading-relaxed">
-                Looking for a frontend developer passionate about clean code, smooth UX, and modern design? 
-                Let&apos;s build something amazing together.
+                Looking for a developer passionate about clean code, smooth UX, and modern design? Let&apos;s build something amazing together.
               </p>
             </div>
 
             {/* Contact Form */}
             <div className="relative">
               <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 rounded-3xl blur opacity-30 animate-pulse" />
-              
-              <form 
-                onSubmit={handleSubmit}
-                className="relative bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20 shadow-xl"
-              >
+
+              <form onSubmit={handleSubmit} className="relative bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20 shadow-xl">
                 <div className="text-center mb-8">
                   <h2 className="text-2xl font-bold text-white mb-2">Get In Touch</h2>
                   <p className="text-gray-400">Ready to start a conversation? Drop me a message!</p>
                 </div>
 
+                {/* Show env missing banner */}
+                {envMissing && (
+                  <div className="mb-4 text-sm text-yellow-300 bg-yellow-900/20 border border-yellow-700/30 py-3 px-4 rounded-lg">
+                    Email sending is disabled: EmailJS environment variables are not set. The form will not send emails until you add <code>NEXT_PUBLIC_EMAILJS_SERVICE_ID</code>, <code>NEXT_PUBLIC_EMAILJS_TEMPLATE_ID</code>, and <code>NEXT_PUBLIC_EMAILJS_PUBLIC_KEY</code>.
+                  </div>
+                )}
+
                 <div className="space-y-6">
                   {/* Name Field */}
                   <div className="group relative">
                     <div className="relative">
-                      <User className={`absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 transition-all duration-300 ${
-                        focusedField === 'name' || formData.name ? 'text-purple-400 scale-110' : 'text-gray-500'
-                      }`} />
+                      <User
+                        className={`absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 transition-all duration-300 ${focusedField === "name" || formData.name ? "text-purple-400 scale-110" : "text-gray-500"}`}
+                      />
                       <input
+                        name="name"
                         type="text"
                         value={formData.name}
-                        onChange={(e) => handleChange('name', e.target.value)}
-                        onFocus={() => setFocusedField('name')}
-                        onBlur={() => setFocusedField('')}
+                        onChange={(e) => handleChange("name", e.target.value)}
+                        onFocus={() => setFocusedField("name")}
+                        onBlur={() => setFocusedField("")}
+                        aria-invalid={!!errors.name}
                         className={`w-full pl-12 pr-4 py-4 bg-white/5 backdrop-blur-sm border-2 rounded-2xl transition-all duration-300 text-white placeholder-gray-400 focus:outline-none ${
-                          errors.name ? 'border-red-500 shake' : 
-                          focusedField === 'name' || formData.name ? 'border-purple-500 shadow-lg shadow-purple-500/25 bg-white/10' : 'border-white/10 hover:border-white/20'
+                          errors.name ? "border-red-500 shake" : focusedField === "name" || formData.name ? "border-purple-500 shadow-lg shadow-purple-500/25 bg-white/10" : "border-white/10 hover:border-white/20"
                         }`}
                         placeholder="Your name"
                       />
@@ -363,18 +392,19 @@ const ContactMe = () => {
                   {/* Email Field */}
                   <div className="group relative">
                     <div className="relative">
-                      <Mail className={`absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 transition-all duration-300 ${
-                        focusedField === 'email' || formData.email ? 'text-blue-400 scale-110' : 'text-gray-500'
-                      }`} />
+                      <Mail
+                        className={`absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 transition-all duration-300 ${focusedField === "email" || formData.email ? "text-blue-400 scale-110" : "text-gray-500"}`}
+                      />
                       <input
+                        name="email"
                         type="email"
                         value={formData.email}
-                        onChange={(e) => handleChange('email', e.target.value)}
-                        onFocus={() => setFocusedField('email')}
-                        onBlur={() => setFocusedField('')}
+                        onChange={(e) => handleChange("email", e.target.value)}
+                        onFocus={() => setFocusedField("email")}
+                        onBlur={() => setFocusedField("")}
+                        aria-invalid={!!errors.email}
                         className={`w-full pl-12 pr-4 py-4 bg-white/5 backdrop-blur-sm border-2 rounded-2xl transition-all duration-300 text-white placeholder-gray-400 focus:outline-none ${
-                          errors.email ? 'border-red-500 shake' : 
-                          focusedField === 'email' || formData.email ? 'border-blue-500 shadow-lg shadow-blue-500/25 bg-white/10' : 'border-white/10 hover:border-white/20'
+                          errors.email ? "border-red-500 shake" : focusedField === "email" || formData.email ? "border-blue-500 shadow-lg shadow-blue-500/25 bg-white/10" : "border-white/10 hover:border-white/20"
                         }`}
                         placeholder="your.email@example.com"
                       />
@@ -390,18 +420,19 @@ const ContactMe = () => {
                   {/* Subject Field */}
                   <div className="group relative">
                     <div className="relative">
-                      <Zap className={`absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 transition-all duration-300 ${
-                        focusedField === 'subject' || formData.subject ? 'text-yellow-400 scale-110' : 'text-gray-500'
-                      }`} />
+                      <Zap
+                        className={`absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 transition-all duration-300 ${focusedField === "subject" || formData.subject ? "text-yellow-400 scale-110" : "text-gray-500"}`}
+                      />
                       <input
+                        name="subject"
                         type="text"
                         value={formData.subject}
-                        onChange={(e) => handleChange('subject', e.target.value)}
-                        onFocus={() => setFocusedField('subject')}
-                        onBlur={() => setFocusedField('')}
+                        onChange={(e) => handleChange("subject", e.target.value)}
+                        onFocus={() => setFocusedField("subject")}
+                        onBlur={() => setFocusedField("")}
+                        aria-invalid={!!errors.subject}
                         className={`w-full pl-12 pr-4 py-4 bg-white/5 backdrop-blur-sm border-2 rounded-2xl transition-all duration-300 text-white placeholder-gray-400 focus:outline-none ${
-                          errors.subject ? 'border-red-500 shake' : 
-                          focusedField === 'subject' || formData.subject ? 'border-yellow-500 shadow-lg shadow-yellow-500/25 bg-white/10' : 'border-white/10 hover:border-white/20'
+                          errors.subject ? "border-red-500 shake" : focusedField === "subject" || formData.subject ? "border-yellow-500 shadow-lg shadow-yellow-500/25 bg-white/10" : "border-white/10 hover:border-white/20"
                         }`}
                         placeholder="What's this about?"
                       />
@@ -417,18 +448,19 @@ const ContactMe = () => {
                   {/* Message Field */}
                   <div className="group relative">
                     <div className="relative">
-                      <MessageSquare className={`absolute left-4 top-4 w-5 h-5 transition-all duration-300 ${
-                        focusedField === 'message' || formData.message ? 'text-green-400' : 'text-gray-500'
-                      }`} />
+                      <MessageSquare
+                        className={`absolute left-4 top-4 w-5 h-5 transition-all duration-300 ${focusedField === "message" || formData.message ? "text-green-400" : "text-gray-500"}`}
+                      />
                       <textarea
+                        name="message"
                         rows={5}
                         value={formData.message}
-                        onChange={(e) => handleChange('message', e.target.value)}
-                        onFocus={() => setFocusedField('message')}
-                        onBlur={() => setFocusedField('')}
+                        onChange={(e) => handleChange("message", e.target.value)}
+                        onFocus={() => setFocusedField("message")}
+                        onBlur={() => setFocusedField("")}
+                        aria-invalid={!!errors.message}
                         className={`w-full pl-12 pr-4 py-4 bg-white/5 backdrop-blur-sm border-2 rounded-2xl transition-all duration-300 text-white placeholder-gray-400 focus:outline-none resize-none ${
-                          errors.message ? 'border-red-500 shake' : 
-                          focusedField === 'message' || formData.message ? 'border-green-500 shadow-lg shadow-green-500/25 bg-white/10' : 'border-white/10 hover:border-white/20'
+                          errors.message ? "border-red-500 shake" : focusedField === "message" || formData.message ? "border-green-500 shadow-lg shadow-green-500/25 bg-white/10" : "border-white/10 hover:border-white/20"
                         }`}
                         placeholder="Tell me about your project, collaboration idea, or just say hi!"
                       />
@@ -444,8 +476,9 @@ const ContactMe = () => {
                   {/* Submit Button */}
                   <button
                     type="submit"
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || envMissing}
                     className="group relative w-full px-8 py-4 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 rounded-2xl font-semibold text-white transition-all duration-300 transform hover:scale-105 disabled:opacity-70 disabled:cursor-not-allowed"
+                    aria-disabled={isSubmitting || envMissing}
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 rounded-2xl blur opacity-0 group-hover:opacity-50 transition-opacity duration-300" />
                     <div className="relative flex items-center justify-center space-x-2">
@@ -464,10 +497,18 @@ const ContactMe = () => {
                   </button>
 
                   {/* Success Message */}
-                  {submitStatus === 'success' && (
+                  {submitStatus === "success" && (
                     <div className="flex items-center justify-center space-x-2 text-green-400 bg-green-900/30 border border-green-500/30 py-4 px-6 rounded-2xl animate-slide-up backdrop-blur-sm">
                       <CheckCircle className="w-5 h-5" />
                       <span>Message sent successfully! I&apos;ll get back to you soon.</span>
+                    </div>
+                  )}
+
+                  {/* Error Message */}
+                  {submitStatus === "error" && (
+                    <div className="flex items-center justify-center space-x-2 text-red-400 bg-red-900/30 border border-red-500/30 py-4 px-6 rounded-2xl animate-slide-up backdrop-blur-sm">
+                      <AlertCircle className="w-5 h-5" />
+                      <span>Failed to send message. Please try again.</span>
                     </div>
                   )}
                 </div>
@@ -479,22 +520,47 @@ const ContactMe = () => {
 
       <style jsx>{`
         @keyframes slide-down {
-          from { opacity: 0; transform: translateY(-10px); }
-          to { opacity: 1; transform: translateY(0); }
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
         @keyframes slide-up {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
         @keyframes shake {
-          0%, 100% { transform: translateX(0); }
-          25% { transform: translateX(-5px); }
-          75% { transform: translateX(5px); }
+          0%,
+          100% {
+            transform: translateX(0);
+          }
+          25% {
+            transform: translateX(-5px);
+          }
+          75% {
+            transform: translateX(5px);
+          }
         }
 
-        .animate-slide-up { animation: slide-up 0.6s ease-out; }
-        .animate-slide-down { animation: slide-down 0.3s ease-out; }
-        .shake { animation: shake 0.5s ease-in-out; }
+        .animate-slide-up {
+          animation: slide-up 0.6s ease-out;
+        }
+        .animate-slide-down {
+          animation: slide-down 0.3s ease-out;
+        }
+        .shake {
+          animation: shake 0.5s ease-in-out;
+        }
       `}</style>
     </section>
   );

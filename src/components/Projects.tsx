@@ -335,11 +335,6 @@ const ProjectShowcase: React.FC = () => {
                       />
                     )}
                     
-                    {/* Fallback Icon */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-cyan-900/20 flex items-center justify-center">
-                      <Code className="w-16 h-16 text-gray-600" />
-                    </div>
-                    
                     {/* Image Overlay */}
                     <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300" />
                   </div>
