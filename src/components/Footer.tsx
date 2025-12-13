@@ -181,12 +181,12 @@ const Footer: React.FC<FooterProps> = ({
 
 
   const navigationLinks = [
-    { href: '/', label: 'Home', icon: Home },
-    { href: '/about', label: 'About', icon: User },
-    { href: '/projects', label: 'Projects', icon: FolderOpen },
-    { href: '/skills', label: 'Skills', icon: Zap },
-    { href: '/contact', label: 'Contact', icon: MessageCircle },
-    { href: '/resume', label: 'Resume', icon: FileText }
+    { href: '#', label: 'Home', icon: Home },
+    { href: '#aboutme', label: 'About', icon: User },
+    { href: '#projects', label: 'Projects', icon: FolderOpen },
+    { href: '#skills', label: 'Skills', icon: Zap },
+    { href: '#contact', label: 'Contact', icon: MessageCircle },
+    { href: 'https://drive.google.com/file/d/1mgVZBLUCuAtVY_QhzuJLOWosUOJqUE1V/view?usp=sharing', type: 'external', label: 'Resume', icon: FileText }
   ];
 
   const socialLinks: SocialLink[] = [
