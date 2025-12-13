@@ -21,6 +21,20 @@ import { TbBrandNextjs, TbBrandVscode } from 'react-icons/tb';
 import type { IconType } from 'react-icons';
 
 interface Tech { id: number; name: string; icon: IconType; category?: string; }
+interface Hologram {
+  top: number;
+  left: number;
+  duration: number;
+  delay: number;
+}
+
+interface Particle {
+  x: number;
+  duration: number;
+  delay: number;
+  char: '0' | '1';
+}
+
 
 const techStack: Tech[] = [
   { id: 1, name: 'JavaScript', icon: SiJavascript, category: 'language' },
@@ -134,30 +148,46 @@ const HeroSection: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
 
   /* ------------------ precompute random values (no per-render randomness) ------------------ */
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const [isMobile, setIsMobile] = useState(false);
+
+useEffect(() => {
+  const check = () => setIsMobile(window.innerWidth < 768);
+  check();
+}, []);
+
 
   const HOLOGRAM_COUNT = isMobile ? 6 : 12;
   const PARTICLE_COUNT = isMobile ? 12 : 28;
 
   // hologram line positions & timing (memoized)
-  const holograms = useMemo(() => {
-    return Array.from({ length: HOLOGRAM_COUNT }).map(() => ({
-      top: Math.round(Math.random() * 100),
-      left: Math.round(Math.random() * 100),
-      duration: 6 + Math.random() * 6,
-      delay: Math.random() * 2
-    }));
-  }, [HOLOGRAM_COUNT]);
+const hologramsRef = useRef<Hologram[]>([]);
+
+if (hologramsRef.current.length === 0) {
+  hologramsRef.current = Array.from({ length: HOLOGRAM_COUNT }).map(() => ({
+    top: Math.round(Math.random() * 100),
+    left: Math.round(Math.random() * 100),
+    duration: 6 + Math.random() * 6,
+    delay: Math.random() * 2
+  }));
+}
+
+const holograms = hologramsRef.current;
+
 
   // particles for the binary rain (memoized)
-  const particles = useMemo(() => {
-    return Array.from({ length: PARTICLE_COUNT }).map(() => ({
-      x: Math.round(Math.random() * 320),
-      duration: 4 + Math.random() * 6,
-      delay: Math.random() * 4,
-      char: Math.random() > 0.5 ? '1' : '0'
-    }));
-  }, [PARTICLE_COUNT]);
+const particlesRef = useRef<Particle[]>([]);
+
+if (particlesRef.current.length === 0) {
+  particlesRef.current = Array.from({ length: PARTICLE_COUNT }).map(() => ({
+    x: Math.random() * 320,
+    duration: 4 + Math.random() * 6,
+    delay: Math.random() * 4,
+    char: Math.random() > 0.5 ? '1' : '0'
+  }));
+}
+
+const particles = particlesRef.current;
+
 
   /* ------------------ witty comment rotator ------------------ */
   const [index, setIndex] = useState(0);
