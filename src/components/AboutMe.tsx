@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight, ExternalLink, Terminal } from 'lucide-react';
+import type { ReactNode } from 'react';
 
 
 interface Certificate {
@@ -17,7 +18,7 @@ interface Certificate {
 
 interface ConsoleCommand {
   command: string;
-  output: string | JSX.Element;
+  output: string | ReactNode;
   type: 'success' | 'info' | 'warning' | 'error';
 }
 
