@@ -7,6 +7,7 @@ import Projects from '@/components/Projects';
 import Skills from '@/components/Skills';
 import Contact from '@/components/Contact';   
 import Footer from '@/components/Footer';
+import { Analytics } from '@vercel/analytics/next';
 
 import React from 'react';
 
@@ -45,6 +46,7 @@ export default function RootLayout({
         <Contact />
         <Footer />
         {children}
+        <Analytics />
       </body>
     </html>
   );
