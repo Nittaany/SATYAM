@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect , useRef, useState } from 'react';
 import {
   motion,
   useInView,
@@ -20,7 +20,8 @@ import { BiLogoFirebase, BiLogoJava } from 'react-icons/bi';
 import { TbBrandNextjs, TbBrandVscode } from 'react-icons/tb';
 import type { IconType } from 'react-icons';
 
-interface Tech { id: number; name: string; icon: IconType; category?: string; }
+
+interface TechStack { id: number; name: string; icon: IconType; category?: string; }
 interface Hologram {
   top: number;
   left: number;
@@ -36,7 +37,7 @@ interface Particle {
 }
 
 
-const techStack: Tech[] = [
+const techStack: TechStack[] = [
   { id: 1, name: 'JavaScript', icon: SiJavascript, category: 'language' },
   { id: 2, name: 'Python', icon: SiPython, category: 'language' },
   { id: 3, name: 'C/C++', icon: SiCplusplus, category: 'language' },
@@ -106,16 +107,25 @@ const wittyComments = [
 const TypewriterComponent: React.FC = () => {
   const [text] = useTypewriter({
     words: [
+      'Accidental Engineer',
       'Full Stack Developer',
       'Code Architect',
       'Bug Exterminator',
+      'Exam-Time Algorithm Memorizer',
       'Pixel Perfectionist',
-      'Coffee → Code Converter'
+      'Coffee → Code Converter',
+      'It Works On My Machine',
+      'Professional Googler',
+      'README Writer',
+      '404 Problem Not Found',
+      'Big-O Anxiety Specialist',
+      'Git Commit: “final_final_v3”',
+
     ],
     loop: true,
-    delaySpeed: 2000,
-    deleteSpeed: 50,
-    typeSpeed: 70
+    delaySpeed: 2500,
+    deleteSpeed: 65,
+    typeSpeed: 80
   });
 
   return (
@@ -143,25 +153,23 @@ TechIcon.displayName = 'TechIcon';
 
 const HeroSection: React.FC = () => {
   const ref = useRef<HTMLDivElement | null>(null);
-  const isInView = useInView(ref, { once: true, margin: '-50px' });
+  const isInView = useInView(ref, { once: true, margin: '-75px' });
   const controls = useAnimation();
   const shouldReduceMotion = useReducedMotion();
 
   /* ------------------ precompute random values (no per-render randomness) ------------------ */
-  const [isMobile, setIsMobile] = useState(false);
+const [isMobile, setIsMobile] = useState(false);
 
 useEffect(() => {
   const check = () => setIsMobile(window.innerWidth < 768);
   check();
-}, []);
-
-
+  }, []);
   const HOLOGRAM_COUNT = isMobile ? 6 : 12;
   const PARTICLE_COUNT = isMobile ? 12 : 28;
 
+
   // hologram line positions & timing (memoized)
 const hologramsRef = useRef<Hologram[]>([]);
-
 if (hologramsRef.current.length === 0) {
   hologramsRef.current = Array.from({ length: HOLOGRAM_COUNT }).map(() => ({
     top: Math.round(Math.random() * 100),
@@ -170,13 +178,11 @@ if (hologramsRef.current.length === 0) {
     delay: Math.random() * 2
   }));
 }
-
 const holograms = hologramsRef.current;
 
 
   // particles for the binary rain (memoized)
 const particlesRef = useRef<Particle[]>([]);
-
 if (particlesRef.current.length === 0) {
   particlesRef.current = Array.from({ length: PARTICLE_COUNT }).map(() => ({
     x: Math.random() * 320,
@@ -185,7 +191,6 @@ if (particlesRef.current.length === 0) {
     char: Math.random() > 0.5 ? '1' : '0'
   }));
 }
-
 const particles = particlesRef.current;
 
 
@@ -199,7 +204,7 @@ const particles = particlesRef.current;
   /* ------------------ entrance animation controller ------------------ */
   useEffect(() => {
     if (isInView) {
-      controls.start({ scale: [0.95, 1], opacity: 1, transition: { duration: 0.9, ease: 'easeOut' } });
+      controls.start({ scale: [0.5, 1], opacity: 1, transition: { duration: 0.5, ease: 'easeOut' } });
     }
   }, [isInView, controls]);
 
@@ -252,16 +257,16 @@ const particles = particlesRef.current;
       {!shouldReduceMotion && (
         <>
           <motion.div
-            className="absolute top-1/4 left-1/6 w-72 h-72 rounded-full filter blur-2xl"
+            className="absolute top-1/4 left-1/6 w-72 h-52 rounded-full filter blur-2xl"
             style={{ background: 'linear-gradient(90deg,#7928CA,#FF0080)' }}
-            animate={{ scale: [1, 1.18, 1] }}
-            transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
+            animate={{ opacity: [0.75, 1, 0.75,], scale: [1, 1.25, 1] }}
+            transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
           />
           <motion.div
             className="absolute bottom-1/4 right-1/6 w-72 h-72 rounded-full filter blur-2xl"
             style={{ background: 'linear-gradient(90deg,#FF0080,#007CF0)' }}
-            animate={{ scale: [1.1, 1, 1.1] }}
-            transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
+            animate={{ opacity: [ 0.5, 1, 0.5],scale: [1, 1.1, 1] }}
+            transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
           />
         </>
       )}
