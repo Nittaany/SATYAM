@@ -2,6 +2,7 @@
 
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import {
   Github,
@@ -372,8 +373,8 @@ const Footer: React.FC<FooterProps> = ({
                 </div>
 
                 <p className="text-gray-300 text-lg leading-relaxed max-w-md">
-                  Full-Stack Developer <br />
-                  Creating innovative digital experiences with cutting-edge technologies.
+                  Turning coffee into code, bugs into features, and ideas into reality. <br />
+                  <span className="text-gray-400 text-base">Currently crafting digital experiences one commit at a time.</span>
                 </p>
 
                 <div className="inline-flex items-center gap-3 px-5 py-3 rounded-full bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/20 backdrop-blur-xl">
@@ -382,13 +383,9 @@ const Footer: React.FC<FooterProps> = ({
                     <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
                   </span>
                   <span className="text-sm text-green-300 font-medium">
-                    Open to opportunities · Remote friendly
+                    Open to opportunities · Remote friendly · Somewhere between Nepal 🇳🇵 and the internet 🌍
                   </span>
                 </div>
-
-                <p className="text-sm text-gray-500 italic">
-                  Somewhere between Nepal 🇳🇵 and the internet 🌍
-                </p>
               </div>
 
               {/* Navigation */}
@@ -414,15 +411,15 @@ const Footer: React.FC<FooterProps> = ({
             </div>
 
             {/* Right Column - Tinder Cards or Simple Grid */}
-            <div className="flex flex-col items-center justify-center">
-              <h3 className="text-2xl font-semibold text-white mb-6 text-center">
-                Connect & Collaborate
+            <div className="flex flex-col items-center justify-center pt-8 lg:pt-0">
+              <h3 className="text-3xl md:text-4xl font-bold  mb-8 text-center bg-gradient-to-r from-white via-blue-200 to-purple-300 bg-clip-text text-transparent">
+                Find me on
               </h3>
 
               {deviceTier === 'low' ? (
                 <SimpleIconGrid cards={socialCards} />
               ) : (
-                <div className="relative w-full max-w-sm mx-auto" style={{ height: '500px' }}>
+                <div className="relative w-full max-w-[320px] mx-auto" style={{ height: '400px' }}>
                   {socialCards.map((card, i) => (
                     <TinderCard
                       key={card.id}
@@ -453,41 +450,66 @@ const Footer: React.FC<FooterProps> = ({
           </div>
 
           {/* Bottom credits */}
-          <div className="flex flex-col items-center gap-4 text-gray-500 text-sm border-t border-white/10 pt-8 mt-12">
-            <div className="flex items-center gap-2">
-              <span>Built with</span>
-              <Heart className="w-4 h-4 text-red-500 animate-pulse" />
-              <span>and</span>
-              <Coffee className="w-4 h-4 text-yellow-500" />
+            <div className="flex flex-col items-center gap-6 text-gray-500 text-sm border-t border-white/10 pt-10 mt-12">
+
+              {/* Tech Stack */}
+              <div className="flex flex-col items-center">
+                <span className="text-sm uppercase tracking-wide text-gray-400">
+                  CRAFTED WITH
+                </span>
+
+                <div className="flex items-center gap-2 flex-wrap justify-center">
+
+                  {/* Next.js – primary */}
+                  <div className="">
+                    <Image
+                      src="/next.svg"
+                      alt="Next.js"
+                      width={75}
+                      height={54}
+                      className="filter invert opacity-75"
+                    />
+                  </div>
+
+                  {/* Secondary stack */}
+                  <div className="flex items-center gap-3 text-xs text-gray-400">
+                    <span className='text-3xl'>·</span>
+
+                    <div className="flex items-center gap-1">
+                      <Image src="/typescript.svg" alt="TypeScript" width={32} height={32} className='opacity-75'/>
+                    </div>
+
+                    <span className='text-3xl'>·</span>
+
+                    <div className="flex items-center gap-1">
+                      <Image src="/tailwind.svg" alt="Tailwind CSS" width={32} height={32} className='opacity-75'/>
+                    </div>
+
+                    <span className='text-3xl'>·</span>
+
+                    <div className="flex items-center gap-1">
+                      <Image src="/vercel.svg" alt="Vercel" width={54} height={32} className=' invert opacity-75' />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Personality */}
+              <div className="flex items-center gap-2 text-xs text-gray-500 opacity-60">
+                <span>Crafted with</span>
+                <Heart className="w-3 h-3 text-red-500 animate-pulse" />
+                <span>and</span>
+                <Coffee className="w-3 h-3 text-yellow-500 animate-pulse" />
+              </div>
+
+              {/* Copyright */}
+              <p className="text-xs text-gray-600">
+                © 2024 {name}
+              </p>
+
             </div>
 
-            <div className="flex items-center gap-4 flex-wrap justify-center">
-              <span className="text-gray-400">Next.js</span>
-              <span>•</span>
-              <a
-                href="https://nextjs.org/learn"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-white transition-colors"
-              >
-                Learn
-              </a>
-              <span>•</span>
-              <a
-                href="https://nextjs.org/docs"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-white transition-colors"
-              >
-                Docs
-              </a>
-            </div>
-
-            <p className="text-xs text-gray-600">
-              © 2024 {name} · Crafted with care
-            </p>
-          </div>
-        </div>
+         </div>
       </motion.footer>
 
       {/* Back to Top */}
