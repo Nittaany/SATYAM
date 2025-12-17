@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -10,7 +9,6 @@ import {
   Twitter,
   Mail,
   ChevronUp,
-  Home,
   User,
   FolderOpen,
   Zap,
@@ -19,7 +17,6 @@ import {
   Heart,
   Coffee,
   ArrowRight,
-  X
 } from 'lucide-react';
 
 /* ---------------------- Types ---------------------- */
@@ -127,7 +124,7 @@ const TinderCard: React.FC<{
         ${isActive ? 'hover:border-white/30 hover:shadow-[0_0_40px_rgba(59,130,246,0.3)]' : ''}
       `}>
         {/* Card Content */}
-        <div className="flex flex-col items-center justify-center h-full p-8">
+        <div className="flex flex-col items-center justify-center h-full p-8 ">
           <Icon className="w-20 h-20 text-white mb-6" strokeWidth={1.5} />
           
           <h3 className="text-3xl font-bold text-white mb-2">
@@ -145,29 +142,12 @@ const TinderCard: React.FC<{
 
         {/* Action Buttons - Only on active card */}
         {isActive && (
-          <div className="absolute bottom-8 left-0 right-0 flex justify-center items-center gap-8 px-8">
-            <button
-              onClick={() => onSwipe('left')}
-              className="
-                group flex items-center gap-2
-                px-6 py-3 rounded-full
-                bg-gray-800/50 hover:bg-gray-700/70
-                border border-white/10 hover:border-white/20
-                text-gray-300 hover:text-white
-                transition-all duration-200
-                hover:scale-105
-              "
-              aria-label="Skip"
-            >
-              <X className="w-5 h-5" />
-              <span className="text-sm font-medium">Skip</span>
-            </button>
-
-            <button
+          <div className="absolute bottom-8 left-0 right-0 flex justify-center items-center gap-4 px-4">
+             <button
               onClick={handleVisit}
               className="
                 group flex items-center gap-2
-                px-8 py-3 rounded-full
+                px-5 py-3 rounded-full
                 bg-gradient-to-r from-pink-500 to-red-500
                 hover:from-pink-600 hover:to-red-600
                 text-white font-semibold
@@ -178,6 +158,22 @@ const TinderCard: React.FC<{
             >
               <Heart className="w-5 h-5 group-hover:scale-110 transition-transform" />
               <span>Connect</span>
+            </button>
+            <button
+              onClick={() => onSwipe('left')}
+              className="
+                group flex items-center gap-2
+                px-6 py-3 rounded-full
+                bg-gray-800/50 hover:bg-gray-700/70
+                border border-white/10 hover:border-white/20
+                text-gray-300 hover:text-white
+                transition-all duration-200
+                hover:scale-70
+              "
+              aria-label="Arrow Right"
+            >
+              <ArrowRight className="w-5 h-5" />
+              <span className="text-sm font-medium">Next</span>
             </button>
           </div>
         )}
@@ -240,26 +236,26 @@ const Footer: React.FC<FooterProps> = ({
       id: 'github',
       platform: 'GitHub',
       icon: Github,
-      username: '@yourusername',
-      href: 'https://github.com/yourusername',
-      gradient: 'from-gray-700 to-gray-900',
+      username: 'Nittaany',
+      href: 'https://github.com/Nittaany',
+      gradient: 'from-neutral-700 via-neutral-800 to-neutral-900',
       tagline: "Let's build together"
     },
     {
       id: 'linkedin',
       platform: 'LinkedIn',
       icon: Linkedin,
-      username: '@yourusername',
-      href: 'https://linkedin.com/in/yourusername',
-      gradient: 'from-blue-600 to-blue-800',
+      username: 'satyam-c',
+      href: 'http://linkedin.com/in/satyam-c/',
+      gradient: 'from-blue-700 to-blue-900',
       tagline: "Let's connect professionally"
     },
     {
       id: 'twitter',
       platform: 'Twitter',
       icon: Twitter,
-      username: '@yourusername',
-      href: 'https://twitter.com/yourusername',
+      username: '@nittaany',
+      href: 'https://x.com/nittaany',
       gradient: 'from-sky-500 to-blue-700',
       tagline: "Let's share ideas"
     },
@@ -270,7 +266,7 @@ const Footer: React.FC<FooterProps> = ({
       username: email,
       href: `mailto:${email}`,
       gradient: 'from-purple-600 to-pink-600',
-      tagline: "Let's start a conversation"
+      tagline: "Let's have a conversation"
     }
   ];
 
@@ -306,7 +302,6 @@ const Footer: React.FC<FooterProps> = ({
   };
 
   const navigationLinks = [
-    { href: '#', label: 'Home', icon: Home },
     { href: '#aboutme', label: 'About', icon: User },
     { href: '#projects', label: 'Projects', icon: FolderOpen },
     { href: '#skills', label: 'Skills', icon: Zap },
@@ -373,8 +368,8 @@ const Footer: React.FC<FooterProps> = ({
                 </div>
 
                 <p className="text-gray-300 text-lg leading-relaxed max-w-md">
-                  Turning coffee into code, bugs into features, and ideas into reality. <br />
-                  <span className="text-gray-400 text-base">Currently crafting digital experiences one commit at a time.</span>
+                  I build for the web and beyond. <br />
+                  <span className="text-gray-400 text-base"> Still exploring and committed to doing things well.</span>
                 </p>
 
                 <div className="inline-flex items-center gap-3 px-5 py-3 rounded-full bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/20 backdrop-blur-xl">
@@ -383,7 +378,7 @@ const Footer: React.FC<FooterProps> = ({
                     <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
                   </span>
                   <span className="text-sm text-green-300 font-medium">
-                    Open to opportunities · Remote friendly · Somewhere between Nepal 🇳🇵 and the internet 🌍
+                    Based in Nepal 🇳🇵 <br className='m-0.5' /> Open to good problems, wherever they are 🌍
                   </span>
                 </div>
               </div>
@@ -411,9 +406,9 @@ const Footer: React.FC<FooterProps> = ({
             </div>
 
             {/* Right Column - Tinder Cards or Simple Grid */}
-            <div className="flex flex-col items-center justify-center pt-8 lg:pt-0">
-              <h3 className="text-3xl md:text-4xl font-bold  mb-8 text-center bg-gradient-to-r from-white via-blue-200 to-purple-300 bg-clip-text text-transparent">
-                Find me on
+            <div className="flex flex-col items-center justify-center pt-8 lg:pt-4">
+              <h3 className="text-2xl md:text-4xl font-bold  mb-8 text-center bg-gradient-to-r from-white via-blue-200 to-purple-300 bg-clip-text text-transparent">
+                  My Endpoints
               </h3>
 
               {deviceTier === 'low' ? (
@@ -473,19 +468,19 @@ const Footer: React.FC<FooterProps> = ({
 
                   {/* Secondary stack */}
                   <div className="flex items-center gap-3 text-xs text-gray-400">
-                    <span className='text-3xl'>·</span>
+                    <span className='text-3xl text-gray-600'>·</span>
 
                     <div className="flex items-center gap-1">
                       <Image src="/typescript.svg" alt="TypeScript" width={32} height={32} className='opacity-75'/>
                     </div>
 
-                    <span className='text-3xl'>·</span>
+                    <span className='text-3xl text-gray-600'>·</span>
 
                     <div className="flex items-center gap-1">
-                      <Image src="/tailwind.svg" alt="Tailwind CSS" width={32} height={32} className='opacity-75'/>
+                      <Image src="/tailwind.svg" alt="Tailwind CSS" width={32} height={32} className='opacity-70'/>
                     </div>
 
-                    <span className='text-3xl'>·</span>
+                    <span className='text-3xl text-gray-600'>·</span>
 
                     <div className="flex items-center gap-1">
                       <Image src="/vercel.svg" alt="Vercel" width={54} height={32} className=' invert opacity-75' />
@@ -495,16 +490,20 @@ const Footer: React.FC<FooterProps> = ({
               </div>
 
               {/* Personality */}
-              <div className="flex items-center gap-2 text-xs text-gray-500 opacity-60">
-                <span>Crafted with</span>
+              <div className="flex items-center gap-1 text-xs text-gray-500 opacity-60">
+                <span> © 2025  { name } </span>
+                <span className="text-xs m-1">·</span>
+                <Coffee className="w-3 h-3 text-yellow-500 animate-bounce" />
+                <span>first</span>
+                <span>·</span>
                 <Heart className="w-3 h-3 text-red-500 animate-pulse" />
-                <span>and</span>
-                <Coffee className="w-3 h-3 text-yellow-500 animate-pulse" />
+                <span>anytime</span>
+
               </div>
 
               {/* Copyright */}
               <p className="text-xs text-gray-600">
-                © 2024 {name}
+               
               </p>
 
             </div>

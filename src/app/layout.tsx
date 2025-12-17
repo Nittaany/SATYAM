@@ -1,11 +1,6 @@
 import { Poppins, Montserrat } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
-import HeroSection from '@/components/HeroSection';
-import AboutMe from '@/components/AboutMe'; 
-import Projects from '@/components/Projects';
-import Skills from '@/components/Skills';
-import Contact from '@/components/Contact';   
 import Footer from '@/components/Footer';
 import { Analytics } from '@vercel/analytics/next';
 
@@ -26,8 +21,8 @@ const montserrat = Montserrat({
 });
 
 export const metadata = {
-  title: 'YourName - Personal Portfolio',
-  description: 'A portfolio showcasing projects, skills, and more.',
+  title: 'SATYAM ',
+  description: 'A portfolio of thoughts and work from computer engineering and beyond.'
 };
 
 export default function RootLayout({
@@ -39,13 +34,8 @@ export default function RootLayout({
     <html lang="en" className={`${poppins.variable} ${montserrat.variable}`}>
       <body className="font-poppins">
         <Navbar />
-        <HeroSection />
-        <AboutMe />
-        <Projects />
-        <Skills />
-        <Contact />
-        <Footer />
         {children}
+        <Footer />
         <Analytics />
       </body>
     </html>
