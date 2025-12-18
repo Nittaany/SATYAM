@@ -234,7 +234,7 @@ const ProjectShowcase: React.FC = () => {
           </h2>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed mb-8">
             A collection of projects that showcase my passion for frontend, full-stack development, 
-            and building creative web solutions that solve real-world problems.
+            and building creative solutions that solve real-world problems.
           </p>
           
           {/* Dynamic Stats */}

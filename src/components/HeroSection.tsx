@@ -287,7 +287,7 @@ const particles = particlesRef.current;
               transition={{ duration: 0.7, delay: 0.2 }}
             >
               <span className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-[#7928CA] via-[#FF0080] to-[#007CF0]">
-                Satyam
+                S A T Y A M
               </span>
             </motion.h1>
 
@@ -325,7 +325,9 @@ const particles = particlesRef.current;
               </Link>
 
               <a
-                href="https://drive.google.com/uc?export=download&id=1mgVZBLUCuAtVY_QhzuJLOWosUOJqUE1V"
+                href="https://sdvpl1b3ic9gmobr.public.blob.vercel-storage.com/Resume/Resume%20-%20SC.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
                 download
                 aria-label="Download Resume"
               >
@@ -385,7 +387,7 @@ const particles = particlesRef.current;
                     aria-hidden
                     key={`part-${i}`}
                     className="absolute text-green-400 font-mono text-[10px] select-none"
-                    initial={{ y: -60, x: p.x }}
+                    initial={{ y: -25, x: p.x }}
                     animate={!shouldReduceMotion ? { y: 460 } : {}}
                     transition={{
                       duration: p.duration,
@@ -416,7 +418,7 @@ const particles = particlesRef.current;
 
                 {/* Image */}
                 <Image
-                  src="/images/me.JPG"
+                  src="https://sdvpl1b3ic9gmobr.public.blob.vercel-storage.com/public/images/me.JPG"
                   alt="Profile"
                   fill
                   sizes="(max-width: 768px) 90vw, 320px"

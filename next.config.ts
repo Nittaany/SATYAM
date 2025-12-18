@@ -1,5 +1,3 @@
-
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -7,11 +5,14 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'www.svgrepo.com',
-        port: '',
         pathname: '/show/**',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.blob.vercel-storage.com',
       },
     ],
   },
 };
 
-module.exports = nextConfig;
+export default nextConfig;
