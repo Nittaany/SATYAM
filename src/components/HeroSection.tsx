@@ -1,12 +1,6 @@
 'use client';
-import React, { useEffect , useRef, useState } from 'react';
-import {
-  motion,
-  useInView,
-  useReducedMotion,
-  AnimatePresence,
-  useAnimation
-} from 'framer-motion';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
+import { motion, useInView, useReducedMotion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useTypewriter, Cursor } from 'react-simple-typewriter';
@@ -20,22 +14,7 @@ import { BiLogoFirebase, BiLogoJava } from 'react-icons/bi';
 import { TbBrandNextjs, TbBrandVscode } from 'react-icons/tb';
 import type { IconType } from 'react-icons';
 
-
 interface TechStack { id: number; name: string; icon: IconType; category?: string; }
-interface Hologram {
-  top: number;
-  left: number;
-  duration: number;
-  delay: number;
-}
-
-interface Particle {
-  x: number;
-  duration: number;
-  delay: number;
-  char: '0' | '1';
-}
-
 
 const techStack: TechStack[] = [
   { id: 1, name: 'JavaScript', icon: SiJavascript, category: 'language' },
@@ -70,32 +49,20 @@ const wittyComments = [
   "// I write code. What's your superpower?",
   "/* Code is poetry in motion */",
   "// In a relationship with my IDE",
-  "// Ctrl + S is my panic button.",
   "/* Hire me before AI replaces me 😅 */",
   "// Console.log is my therapist.",
   "/* JavaScript is my love language */",
   "// Writing logic that Google can't autocomplete",
-  "/* Minimal code. Maximum impact. */",
   "// Debugging: Where the fun begins",
   "/* Eat, Sleep, Code, Repeat */",
   "// My code never has bugs. It just develops random features.",
-  "/* Keep calm and code on */",
-  "// I write code. What's your superpower?",
-  "/* Code is poetry in motion */",
-  "// In a relationship with my IDE",
-  "/* Just one more feature... and one more... and one more... */",
-  "// I speak fluent code and sarcasm",
+  "// Just one more feature... and one more... and one more...",
   "/* Code is my canvas, creativity is my brush */",
   "// I build things that make the internet awesome",
   "// My code is so clean, you could eat off it",
   "/* Coding is my therapy, and the keyboard is my couch */",
   "// I write code that even my mom can understand",
-  "/* Code is my playground, and bugs are just part of the fun */",
-  "// My code is like a fine wine, it gets better with age",
-  "// Code is my love language, and I'm fluent in it",
-  "// I write code that makes computers do cool stuff",
   "// My code is so efficient, it could run on a potato",
-  "// My code is so good, it should come with a warning label",
   "// Probably debugging while you read this",
   "/* Half developer, half illusionist */",
   "// My variables have trust issues",
@@ -103,8 +70,7 @@ const wittyComments = [
 ];
 
 /* ------------------ TYPEWRITER ------------------ */
-
-const TypewriterComponent: React.FC = () => {
+const TypewriterComponent: React.FC = React.memo(() => {
   const [text] = useTypewriter({
     words: [
       'Accidental Engineer',
@@ -119,8 +85,7 @@ const TypewriterComponent: React.FC = () => {
       'README Writer',
       '404 Problem Not Found',
       'Big-O Anxiety Specialist',
-      'Git Commit: “final_final_v3”',
-
+      'Git Commit: "final_final_v3"',
     ],
     loop: true,
     delaySpeed: 2500,
@@ -134,191 +99,341 @@ const TypewriterComponent: React.FC = () => {
       <Cursor cursorStyle="_" />
     </span>
   );
-};
+});
+TypewriterComponent.displayName = 'TypewriterComponent';
 
-/* ------------------ Small helper: memoized icon box ------------------ */
-
+/* ------------------ MEMOIZED TECH ICON ------------------ */
 const TechIcon: React.FC<{ icon: IconType }> = React.memo(({ icon: Icon }) => (
-  <div
-    className="w-11 h-11 rounded-lg bg-gradient-to-br from-black/40 to-black/20 backdrop-blur-sm
-               border border-white/10 flex items-center justify-center"
-    style={{ willChange: 'transform' }}
-  >
+  <div className="flex-shrink-0 w-11 h-11 rounded-lg bg-gradient-to-br from-black/40 to-black/20 border border-white/10 hover:border-white/30 transition-colors duration-200 flex items-center justify-center">
     <Icon className="w-6 h-6 text-white/60" />
   </div>
 ));
 TechIcon.displayName = 'TechIcon';
 
-/* ------------------ MAIN HERO ------------------ */
+/* ------------------ WITTY COMMENT ROTATOR ------------------ */
+const WittyComment: React.FC = React.memo(() => {
+  const [index, setIndex] = useState(0);
+  
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 1) % wittyComments.length);
+    }, 3800);
+    return () => clearInterval(timer);
+  }, []);
 
+  return (
+    <div className="relative h-11 md:h-8 overflow-hidden">
+      {wittyComments.map((comment, i) => (
+        <p
+          key={i}
+          className="absolute inset-0 text-base md:text-lg text-white/60 max-w-xl mx-auto lg:mx-0 font-mono transition-all duration-500 ease-in-out"
+          style={{
+            opacity: i === index ? 1 : 0,
+            transform: i === index ? 'translateY(0)' : 'translateY(10px)',
+          }}
+        >
+          {comment}
+        </p>
+      ))}
+    </div>
+  );
+});
+WittyComment.displayName = 'WittyComment';
+
+/* ------------------ MAIN HERO ------------------ */
 const HeroSection: React.FC = () => {
   const ref = useRef<HTMLDivElement | null>(null);
-  const isInView = useInView(ref, { once: true, margin: '-75px' });
-  const controls = useAnimation();
+  const isInView = useInView(ref, { once: true, margin: '-50px' });
   const shouldReduceMotion = useReducedMotion();
-
-  /* ------------------ precompute random values (no per-render randomness) ------------------ */
-const [isMobile, setIsMobile] = useState(false);
-
-useEffect(() => {
-  const check = () => setIsMobile(window.innerWidth < 768);
-  check();
-  }, []);
-  const HOLOGRAM_COUNT = isMobile ? 6 : 12;
-  const PARTICLE_COUNT = isMobile ? 12 : 28;
+  const [mounted, setMounted] = useState(false);
 
 
-  // hologram line positions & timing (memoized)
-const hologramsRef = useRef<Hologram[]>([]);
-if (hologramsRef.current.length === 0) {
-  hologramsRef.current = Array.from({ length: HOLOGRAM_COUNT }).map(() => ({
-    top: Math.round(Math.random() * 100),
-    left: Math.round(Math.random() * 100),
-    duration: 6 + Math.random() * 6,
-    delay: Math.random() * 2
-  }));
-}
-const holograms = hologramsRef.current;
-
-
-  // particles for the binary rain (memoized)
-const particlesRef = useRef<Particle[]>([]);
-if (particlesRef.current.length === 0) {
-  particlesRef.current = Array.from({ length: PARTICLE_COUNT }).map(() => ({
-    x: Math.random() * 320,
-    duration: 4 + Math.random() * 6,
-    delay: Math.random() * 4,
-    char: Math.random() > 0.5 ? '1' : '0'
-  }));
-}
-const particles = particlesRef.current;
-
-
-  /* ------------------ witty comment rotator ------------------ */
-  const [index, setIndex] = useState(0);
   useEffect(() => {
-    const t = setInterval(() => setIndex((p) => (p + 1) % wittyComments.length), 3800);
-    return () => clearInterval(t);
+    setMounted(true);
   }, []);
 
-  /* ------------------ entrance animation controller ------------------ */
-  useEffect(() => {
-    if (isInView) {
-      controls.start({ scale: [0.5, 1], opacity: 1, transition: { duration: 0.5, ease: 'easeOut' } });
-    }
-  }, [isInView, controls]);
-
-  const ScrollStyle = () => (
+  /* All animations in CSS for performance */
+  const AnimationStyles = useMemo(() => (
     <style>{`
+      /* Tech stack scroll - GPU accelerated */
       @keyframes tech-scroll {
-        0% { transform: translateX(0%); }
+        0% { transform: translateX(0); }
         100% { transform: translateX(-50%); }
       }
       .tech-scroll {
         animation: tech-scroll 36s linear infinite;
         will-change: transform;
       }
-      /* Accessibility: reduce motion */
+
+      /* Background gradients with CSS animation */
+      @keyframes blob-pulse-1 {
+        0%, 100% { opacity: 0.4; transform: scale(1) translate(0, 0); }
+        50% { opacity: 0.6; transform: scale(1.1) translate(10px, -10px); }
+      }
+      @keyframes blob-pulse-2 {
+        0%, 100% { opacity: 0.3; transform: scale(1) translate(0, 0); }
+        50% { opacity: 0.5; transform: scale(1.15) translate(-15px, 10px); }
+      }
+      .bg-blob-1::before {
+        content: '';
+        position: absolute;
+        top: 20%;
+        left: 15%;
+        width: 18rem;
+        height: 13rem;
+        background: linear-gradient(135deg, #7928CA, #FF0080);
+        border-radius: 50%;
+        filter: blur(60px);
+        animation: blob-pulse-1 20s ease-in-out infinite;
+        pointer-events: none;
+      }
+      .bg-blob-2::after {
+        content: '';
+        position: absolute;
+        bottom: 25%;
+        right: 15%;
+        width: 18rem;
+        height: 18rem;
+        background: linear-gradient(135deg, #FF0080, #007CF0);
+        border-radius: 50%;
+        filter: blur(70px);
+        animation: blob-pulse-2 25s ease-in-out infinite;
+        pointer-events: none;
+      }
+
+      /* Floating orbs around image */
+      @keyframes float-orb-1 {
+        0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+        33% { transform: translate(15px, -20px) scale(1.1); opacity: 0.8; }
+        66% { transform: translate(-10px, -15px) scale(0.95); opacity: 0.7; }
+      }
+      @keyframes float-orb-2 {
+        0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.5; }
+        33% { transform: translate(-20px, 15px) scale(1.15); opacity: 0.7; }
+        66% { transform: translate(10px, 20px) scale(0.9); opacity: 0.6; }
+      }
+      @keyframes float-orb-3 {
+        0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.55; }
+        33% { transform: translate(20px, 10px) scale(1.05); opacity: 0.75; }
+        66% { transform: translate(-15px, -10px) scale(1.1); opacity: 0.65; }
+      }
+      
+      .image-orb {
+        position: absolute;
+        border-radius: 50%;
+        pointer-events: none;
+        filter: blur(8px);
+        z-index: 1;
+      }
+      .image-orb-1 {
+        width: 40px;
+        height: 40px;
+        top: 10%;
+        right: -20px;
+        background: linear-gradient(135deg, #FF69B4, #FF1493);
+        animation: float-orb-1 8s ease-in-out infinite;
+      }
+      .image-orb-2 {
+        width: 50px;
+        height: 50px;
+        bottom: 15%;
+        left: -25px;
+        background: linear-gradient(135deg, #9333EA, #C77DFF);
+        animation: float-orb-2 10s ease-in-out infinite;
+      }
+      .image-orb-3 {
+        width: 35px;
+        height: 35px;
+        top: 50%;
+        left: -15px;
+        background: linear-gradient(135deg, #00D4FF, #007CF0);
+        animation: float-orb-3 9s ease-in-out infinite;
+      }
+      
+      /* Image glow effect */
+      .image-glow::before {
+        content: '';
+        position: absolute;
+        inset: -1.5rem;
+        background: linear-gradient(135deg, #FF9BD8, #C77DFF, #6AE0FF);
+        border-radius: 0.75rem;
+        filter: blur(30px);
+        opacity: 0.4;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* Neon border pulse */
+      @keyframes neon-pulse {
+        0%, 100% { 
+          box-shadow: 0 0 10px rgba(255, 105, 180, 0.3),
+                      0 0 20px rgba(255, 105, 180, 0.2),
+                      inset 0 0 10px rgba(255, 105, 180, 0.1);
+        }
+        50% { 
+          box-shadow: 0 0 15px rgba(255, 105, 180, 0.5),
+                      0 0 30px rgba(255, 105, 180, 0.3),
+                      inset 0 0 15px rgba(255, 105, 180, 0.2);
+        }
+      }
+      .neon-border {
+        animation: neon-pulse 3s ease-in-out infinite;
+      }
+
+      /* Left side minimal decorations */
+      @keyframes accent-line-1 {
+        0%, 100% { transform: scaleX(1); opacity: 0.4; }
+        50% { transform: scaleX(1.2); opacity: 0.6; }
+      }
+      @keyframes accent-line-2 {
+        0%, 100% { transform: translateX(0); opacity: 0.3; }
+        50% { transform: translateX(10px); opacity: 0.5; }
+      }
+      @keyframes code-brackets {
+        0%, 100% { opacity: 0.3; transform: translateY(0); }
+        50% { opacity: 0.6; transform: translateY(-5px); }
+      }
+      
+      .text-accent-line-1 {
+        position: absolute;
+        left: 0;
+        top: 20%;
+        width: 60px;
+        height: 2px;
+        background: linear-gradient(90deg, #7928CA, transparent);
+        transform-origin: left;
+        animation: accent-line-1 6s ease-in-out infinite;
+        z-index: 1;
+      }
+      .text-accent-line-2 {
+        position: absolute;
+        left: 0;
+        bottom: 30%;
+        width: 40px;
+        height: 2px;
+        background: linear-gradient(90deg, #FF0080, transparent);
+        animation: accent-line-2 8s ease-in-out infinite;
+        z-index: 1;
+      }
+      .code-bracket {
+        position: absolute;
+        font-family: 'Courier New', monospace;
+        font-size: 80px;
+        font-weight: 100;
+        color: rgba(255, 255, 255, 0.1);
+        pointer-events: none;
+        line-height: 1;
+        z-index: 0;
+      }
+      .code-bracket-top {
+        top: -20px;
+        left: -30px;
+        animation: code-brackets 7s ease-in-out infinite;
+      }
+      .code-bracket-bottom {
+        bottom: -30px;
+        left: -30px;
+        animation: code-brackets 7s ease-in-out infinite 3.5s;
+      }
+
+      /* Scroll indicator animation */
+      @keyframes scroll-bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(10px); }
+      }
+      @keyframes scroll-dot {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(12px); }
+      }
+      .scroll-indicator {
+        animation: scroll-bounce 2s ease-in-out infinite;
+      }
+      .scroll-dot {
+        animation: scroll-dot 2s ease-in-out infinite;
+      }
+
+      /* Terminal cursor blink */
+      @keyframes cursor-blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+      }
+      .terminal-cursor {
+        animation: cursor-blink 0.8s step-end infinite;
+      }
+
+      /* Reduced motion overrides */
       @media (prefers-reduced-motion: reduce) {
-        .tech-scroll { animation: none !important; transform: translateX(0) !important; }
-        .motion-safe { animation: none !important; }
-      }
-      /* small helper for the shimmer (keeps original feel but cheap) */
-      @keyframes shimmer {
-        0% { background-position: -200% 0; }
-        100% { background-position: 200% 0; }
-      }
-      .shimmer-bg {
-        background: linear-gradient(90deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.02) 100%);
-        background-size: 200% 100%;
-        animation: shimmer 2.6s linear infinite;
+        .tech-scroll,
+        .bg-blob-1::before,
+        .bg-blob-2::after,
+        .image-orb,
+        .neon-border,
+        .text-accent-line-1,
+        .text-accent-line-2,
+        .code-bracket,
+        .scroll-indicator,
+        .scroll-dot,
+        .terminal-cursor {
+          animation: none !important;
+        }
       }
     `}</style>
-  );
+  ), []);
 
   return (
     <section
       id="hero"
       className="relative flex flex-col items-center justify-center min-h-screen pt-20 overflow-hidden bg-gradient-to-br from-[#0A0A0A] to-[#111827]"
       ref={ref}
-      style={{ contain: 'paint' }} // isolate repaints
     >
-      <ScrollStyle />
+      {AnimationStyles}
 
-
+      {/* Grid pattern background */}
       <div
-        className="absolute inset-0 opacity-5"
+        className="absolute inset-0 opacity-5 pointer-events-none"
         style={{
-          backgroundImage:
-            "url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAwIDEwIEwgNDAgMTAgTSAxMCAwIEwgMTAgNDBNIDAgMjAgTCA0MCAyMCBNIDIwIDAgTCAyMCA0MCBNIDAgMzAgTCA0MCAzMCBNIDMwIDAgTCAzMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMjAyMDIwIiBvcGFjaXR5PSIwLjIiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')" // same base64 as original
+          backgroundImage: "url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAwIDEwIEwgNDAgMTAgTSAxMCAwIEwgMTAgNDBNIDAgMjAgTCA0MCAyMCBNIDIwIDAgTCAyMCA0MCBNIDAgMzAgTCA0MCAzMCBNIDMwIDAgTCAzMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMjAyMDIwIiBvcGFjaXR5PSIwLjIiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')",
         }}
       />
-      {/* Animated Background Blobs */}
-      {!shouldReduceMotion && (
-        <>
-          <motion.div
-            className="absolute top-1/4 left-1/6 w-72 h-52 rounded-full filter blur-2xl"
-            style={{ background: 'linear-gradient(90deg,#7928CA,#FF0080)' }}
-            animate={{ opacity: [0.75, 1, 0.75,], scale: [1, 1.25, 1] }}
-            transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-          />
-          <motion.div
-            className="absolute bottom-1/4 right-1/6 w-72 h-72 rounded-full filter blur-2xl"
-            style={{ background: 'linear-gradient(90deg,#FF0080,#007CF0)' }}
-            animate={{ opacity: [ 0.5, 1, 0.5],scale: [1, 1.1, 1] }}
-            transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
-          />
-        </>
-      )}
+
+      {/* CSS-only animated blobs - only after mount */}
+      {mounted && !shouldReduceMotion && <div className="bg-blob-1" />}
+      {mounted && !shouldReduceMotion && <div className="bg-blob-2" />}
 
       <div className="container relative z-10 mx-auto px-6">
         <motion.div
           className="flex flex-col lg:flex-row items-center justify-between gap-12"
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.9, delay: 0.15 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
         >
           {/* LEFT: Text / Buttons */}
-          <div className="flex-1 text-center lg:text-left space-y-6">
-            <motion.h1
-              className="text-5xl md:text-7xl lg:text-8xl font-bold font-montserrat tracking-tight"
-              initial={{ opacity: 0, y: 12 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.2 }}
-            >
+          <div className="flex-1 text-center lg:text-left space-y-6 relative">
+            {/* Left side decorations - visible only on desktop, only after mount to avoid hydration issues */}
+            {mounted && !shouldReduceMotion && (
+              <>
+                <span className="code-bracket code-bracket-top hidden lg:block">{'{'}</span>
+                <span className="code-bracket code-bracket-bottom hidden lg:block">{'}'}</span>
+                <div className="text-accent-line-1 hidden lg:block" />
+                <div className="text-accent-line-2 hidden lg:block" />
+              </>
+            )}
+
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold font-montserrat tracking-tight relative z-10">
               <span className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-[#7928CA] via-[#FF0080] to-[#007CF0]">
                 S A T Y A M
               </span>
-            </motion.h1>
+            </h1>
 
-            <motion.p
-              className="text-lg md:text-xl text-white/80 font-mono"
-              initial={{ opacity: 0, y: 12 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.3 }}
-            >
+            <p className="text-lg md:text-xl text-white/80 font-mono relative z-10">
               <TypewriterComponent />
-            </motion.p>
+            </p>
 
-            <AnimatePresence mode="wait">
-              <motion.p
-                key={index}
-                className="text-base md:text-lg text-white/60 max-w-xl mx-auto lg:mx-0 font-mono"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.45 }}
-              >
-                {wittyComments[index]}
-              </motion.p>
-            </AnimatePresence>
+            <WittyComment />
 
-            <div className="flex flex-wrap justify-center lg:justify-start gap-4">
+            <div className="flex flex-wrap justify-center lg:justify-start gap-4 relative z-10">
               <Link href="#projects" aria-label="View Projects">
-                <button
-                  className="relative px-7 py-3 rounded-lg font-normal text-sm text-white bg-transparent border border-purple-500/50
-                             hover:border-purple-400 transition-transform duration-200 transform-gpu hover:scale-105 overflow-hidden group"
-                >
+                <button className="relative px-7 py-3 rounded-lg font-normal text-sm text-white bg-transparent border border-purple-500/50 hover:border-purple-400 transition-all duration-200 hover:scale-105 overflow-hidden group">
                   <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 transition-all duration-300 group-hover:w-full" />
                   <span className="relative z-10">📂 View Projects</span>
                 </button>
@@ -331,10 +446,7 @@ const particles = particlesRef.current;
                 download
                 aria-label="Download Resume"
               >
-                <button
-                  className="relative px-8 py-3 rounded-lg bg-gradient-to-r from-[#8A2BE2] to-[#FF69B4] text-white font-normal text-sm
-                             shadow-lg transition-transform duration-200 transform-gpu hover:scale-105 overflow-hidden group"
-                >
+                <button className="relative px-8 py-3 rounded-lg bg-gradient-to-r from-[#8A2BE2] to-[#FF69B4] text-white font-normal text-sm shadow-lg transition-all duration-200 hover:scale-105 overflow-hidden group">
                   <span className="absolute inset-0 rounded-lg bg-white/5 opacity-0 group-hover:opacity-20 transition-opacity duration-200" />
                   <span className="relative z-10">💾 Download Resume</span>
                 </button>
@@ -343,117 +455,60 @@ const particles = particlesRef.current;
           </div>
 
           {/* RIGHT: Image Card */}
-          <motion.div
-            className="flex-1 relative"
-            initial={{ opacity: 0, scale: 0.98 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.85, delay: 0.28 }}
-          >
-            <div className="relative w-[320px] h-[420px] mx-auto perspective-1000">
+          <div className="flex-1 relative">
+            <div className="relative w-[320px] h-[420px] mx-auto">
+              {/* Image glow effect - only after mount */}
+              {mounted && !shouldReduceMotion && <div className="image-glow" />}
 
-              {!shouldReduceMotion && (
-                <motion.div
-                  className="absolute -inset-4 rounded-lg blur-2xl opacity-50"
-                  style={{ background: 'linear-gradient(90deg,#FF9BD8,#C77DFF,#6AE0FF)' }}
-                  animate={{ rotate: [0, 8, -8, 0], scale: [1, 1.08, 1.03, 1] }}
-                  transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
-                />
+              {/* Floating orbs around image - only after mount */}
+              {mounted && !shouldReduceMotion && (
+                <>
+                  <div className="image-orb image-orb-1" />
+                  <div className="image-orb image-orb-2" />
+                  <div className="image-orb image-orb-3" />
+                </>
               )}
 
-              {holograms.map((h, i) => (
-                <motion.div
-                  key={`holo-${i}`}
-                  className="absolute w-[2px] h-10 rounded-full"
-                  style={{
-                    top: `${h.top}%`,
-                    left: `${h.left}%`,
-                    background: 'linear-gradient(180deg, rgba(191,90,242,0.8), rgba(255,140,168,0.2))',
-                    willChange: 'transform'
-                  }}
-                  animate={!shouldReduceMotion ? { rotate: [0, 360], y: [-8, 8, -8] } : {}}
-                  transition={{
-                    duration: h.duration,
-                    repeat: Infinity,
-                    ease: 'easeInOut',
-                    delay: h.delay
-                  }}
-                />
-              ))}
-
-
-              <div className="absolute inset-0 pointer-events-none" style={{ perspective: 1000 }}>
-                {particles.map((p, i) => (
-                  <motion.span
-                    aria-hidden
-                    key={`part-${i}`}
-                    className="absolute text-green-400 font-mono text-[10px] select-none"
-                    initial={{ y: -25, x: p.x }}
-                    animate={!shouldReduceMotion ? { y: 460 } : {}}
-                    transition={{
-                      duration: p.duration,
-                      repeat: Infinity,
-                      ease: 'linear',
-                      delay: p.delay
-                    }}
-                    style={{ willChange: 'transform' }}
-                  >
-                    {p.char}
-                  </motion.span>
-                ))}
-              </div>
-
               {/* Main Image Card */}
-              <div
-                className="relative w-full h-full rounded-lg overflow-hidden border border-white/10 backdrop-blur-sm group"
-              >
-                {/* Neon Frame Glow */}
-                {!shouldReduceMotion && (
-                  <motion.div
-                    className="absolute inset-0 rounded-lg border-2 pointer-events-none"
-                    style={{ borderColor: 'rgba(255,105,180,0.28)' }}
-                    animate={{ opacity: [0.4, 0.7, 0.4] }}
-                    transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }}
-                  />
-                )}
-
-                {/* Image */}
+              <div className={`relative w-full h-full rounded-lg overflow-hidden border-2 group z-10 ${mounted && !shouldReduceMotion ? 'neon-border' : 'border-white/20'}`}>
                 <Image
                   src="https://sdvpl1b3ic9gmobr.public.blob.vercel-storage.com/public/images/me.JPG"
                   alt="Profile"
                   fill
                   sizes="(max-width: 768px) 90vw, 320px"
-                  className="object-cover scale-105 group-hover:scale-100 transition-transform duration-300 filter brightness-90 contrast-110"
+                  className="object-cover scale-105 group-hover:scale-100 transition-transform duration-300"
+                  style={{ filter: 'brightness(0.9) contrast(1.1)' }}
                   priority
                 />
 
-                {/* Top terminal overlay  */}
-                <div className="absolute top-0 left-0 right-0 bg-gradient-to-b from-black/80 to-transparent p-3 transform -translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                {/* Top terminal overlay - on hover */}
+                <div className="absolute top-0 left-0 right-0 bg-gradient-to-b from-black/80 to-transparent p-3 -translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                   <div className="flex items-center gap-1.5">
-                    <div className="w-2.5 h-2.5 rounded-full bg-red-500/80 animate-pulse" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80 animate-pulse" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-green-500/80 animate-pulse" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
                   </div>
                 </div>
 
-                {/* Bottom code comment with shimmer */}
-                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                  <code className="text-xs text-green-400 font-mono shimmer-bg">
+                {/* Bottom code comment - on hover */}
+                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                  <code className="text-xs text-green-400 font-mono">
                     {"// Developer mode: Activated"}
                   </code>
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
         </motion.div>
 
         {/* TERMINAL + TECH RAIL */}
         <motion.div
           className="mt-12 w-full max-w-4xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.65 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6, delay: 0.3, ease: 'easeOut' }}
         >
-          <div className="relative bg-black/30 backdrop-blur-md rounded-lg border border-white/10 overflow-hidden">
+          <div className="relative bg-black/30 backdrop-blur-sm rounded-lg border border-white/10 overflow-hidden">
             {/* Terminal Header */}
             <div className="flex items-center justify-between px-4 py-2 bg-gray-900/50 border-b border-white/10">
               <div className="flex items-center gap-1.5">
@@ -474,53 +529,31 @@ const particles = particlesRef.current;
                 <span className="text-purple-400">main</span>
                 <span className="text-gray-400 ml-2">$</span>
                 <span className="text-white/90">ls ./skills/</span>
-                <motion.span
-                  className="inline-block w-2 h-4 bg-white/80 ml-1"
-                  animate={!shouldReduceMotion ? { opacity: [1, 0] } : {}}
-                  transition={{ duration: 0.8, repeat: Infinity }}
-                />
+                {mounted && !shouldReduceMotion && (
+                  <span className="inline-block w-2 h-4 bg-white/80 ml-1 terminal-cursor" />
+                )}
               </div>
             </div>
 
-            {/* Tech rail (GPU-friendly CSS scroll) */}
+            {/* Tech rail with CSS animation */}
             <div className="relative overflow-hidden w-full py-4">
-              <div
-                className="flex gap-6 px-4 tech-scroll"
-                // duplicate once so loop is seamless
-                style={{
-                  width: 'max-content',
-                }}
-              >
+              <div className="flex gap-6 px-4 tech-scroll" style={{ width: 'max-content' }}>
                 {[...techStack, ...techStack].map((tech, idx) => (
-                  <div
-                    key={`tech-${idx}`}
-                    className="flex-shrink-0"
-                    style={{ WebkitFontSmoothing: 'subpixel-antialiased' }}
-                  >
-                    <div className="flex items-center justify-center w-11 h-11 rounded-lg bg-gradient-to-br from-black/40 to-black/20 border border-white/10 hover:border-white/30 transition-transform duration-200 transform-gpu">
-                      {React.createElement(tech.icon, { className: 'w-6 h-6 text-white/60' })}
-                    </div>
-                  </div>
+                  <TechIcon key={`tech-${idx}`} icon={tech.icon} />
                 ))}
               </div>
             </div>
           </div>
         </motion.div>
 
-        {/* Scroll Indicator (keeps original) */}
-        <motion.div
-          className="absolute -bottom-4 left-1/2 transform -translate-x-1/2"
-          animate={!shouldReduceMotion ? { y: [0, 10, 0] } : {}}
-          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-        >
-          <div className="w-6 h-10 rounded-full border-2 border-white/20 flex items-start justify-center p-2">
-            <motion.div
-              className="w-1 h-2 bg-white/50 rounded-full"
-              animate={!shouldReduceMotion ? { y: [0, 12, 0] } : {}}
-              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-            />
+        {/* Scroll indicator - only after mount */}
+        {mounted && !shouldReduceMotion && (
+          <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 scroll-indicator">
+            <div className="w-6 h-10 rounded-full border-2 border-white/20 flex items-start justify-center p-2">
+              <div className="w-1 h-2 bg-white/50 rounded-full scroll-dot" />
+            </div>
           </div>
-        </motion.div>
+        )}
       </div>
     </section>
   );
