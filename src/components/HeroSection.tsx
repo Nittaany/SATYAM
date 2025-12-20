@@ -297,19 +297,19 @@ const HeroSection: React.FC = () => {
       .text-accent-line-1 {
         position: absolute;
         left: 0;
-        top: 20%;
-        width: 60px;
+        top: 30%;
+        width: 30%;
         height: 2px;
         background: linear-gradient(90deg, #7928CA, transparent);
         transform-origin: left;
-        animation: accent-line-1 6s ease-in-out infinite;
+        animation: accent-line-1 8s ease-in-out infinite;
         z-index: 1;
       }
       .text-accent-line-2 {
         position: absolute;
         left: 0;
         bottom: 30%;
-        width: 40px;
+        width: 15%;
         height: 2px;
         background: linear-gradient(90deg, #FF0080, transparent);
         animation: accent-line-2 8s ease-in-out infinite;
@@ -320,19 +320,19 @@ const HeroSection: React.FC = () => {
         font-family: 'Courier New', monospace;
         font-size: 80px;
         font-weight: 100;
-        color: rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.25);
         pointer-events: none;
         line-height: 1;
         z-index: 0;
       }
       .code-bracket-top {
-        top: -20px;
-        left: -30px;
+        top: -25%;
+        left: -10%;
         animation: code-brackets 7s ease-in-out infinite;
       }
       .code-bracket-bottom {
-        bottom: -30px;
-        left: -30px;
+        bottom: -20%;
+        left: 75%;
         animation: code-brackets 7s ease-in-out infinite 3.5s;
       }
 
@@ -448,7 +448,7 @@ const HeroSection: React.FC = () => {
               >
                 <button className="relative px-8 py-3 rounded-lg bg-gradient-to-r from-[#8A2BE2] to-[#FF69B4] text-white font-normal text-sm shadow-lg transition-all duration-200 hover:scale-105 overflow-hidden group">
                   <span className="absolute inset-0 rounded-lg bg-white/5 opacity-0 group-hover:opacity-20 transition-opacity duration-200" />
-                  <span className="relative z-10">💾 Download Resume</span>
+                  <span className="relative z-10">📃 Download Resume</span>
                 </button>
               </a>
             </div>
