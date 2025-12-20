@@ -478,10 +478,6 @@ const AboutMe = () => {
                       {`// ${certificates.length} verified achievements`}
                     </p>
                   </div>
-                  <div className="flex items-center gap-2 px-3 py-1 bg-green-500/10 border border-green-500/30 rounded-full">
-                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                    <span className="text-green-400 text-xs font-mono">Live</span>
-                  </div>
                 </div>
                 
                 {/* Interactive badge grid with hover effects */}
