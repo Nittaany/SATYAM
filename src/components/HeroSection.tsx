@@ -430,7 +430,7 @@ const HeroSection: React.FC = () => {
 
             <WittyComment />
 
-            <div className="flex flex-wrap justify-center lg:justify-start gap-4 relative z-10">
+            <div className="flex flex-wrap justify-center lg:justify-start gap-2 relative z-10">
               <Link href="#projects" aria-label="View Projects">
                 <button className="relative px-7 py-3 rounded-lg font-normal text-sm text-white bg-transparent border border-purple-500/50 hover:border-purple-400 transition-all duration-200 hover:scale-105 overflow-hidden group">
                   <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 transition-all duration-300 group-hover:w-full" />
@@ -455,7 +455,7 @@ const HeroSection: React.FC = () => {
 
           {/* RIGHT: Image Card */}
           <div className="flex-1 relative">
-            <div className="relative w-[320px] h-[420px] mx-auto">
+            <div className="relative w-[192px] h-[256px] xs:w-[208px] xs:h-[272px] sm:w-[240px] sm:h-[320px] lg:w-[320px] lg:h-[420px] mx-auto">
               {/* Image glow effect - only after mount */}
               {mounted && !shouldReduceMotion && <div className="image-glow" />}
 
