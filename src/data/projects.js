@@ -180,7 +180,7 @@ export const projectsData = [
     id: 12,
     title: "Mann Maaujii - Wander with Heart",
     description: "Simple Expo app prototype showcasing basic frontend concepts and responsiveness.",
-    image: "https://sdvpl1b3ic9gmobr.public.blob.vercel-storage.com/public/images/projectimage/img-12.jpeg",
+    image: "https://sdvpl1b3ic9gmobr.public.blob.vercel-storage.com/public/images/projectimage/img-15.jpeg",
     liveDemo: "https://nittaany.github.io/MM/",
     sourceCode: "https://github.com/Nittaany/MM",
     techStack: [
@@ -244,7 +244,7 @@ export const projectsData = [
     id: 15,
     title: "NatureBytes",
     description: "Hackathon prototype promoting environmental awareness through interactive web interfaces.",
-    image: "https://sdvpl1b3ic9gmobr.public.blob.vercel-storage.com/public/images/projectimage/img-15.jpeg",
+    image: "https://sdvpl1b3ic9gmobr.public.blob.vercel-storage.com/public/images/projectimage/img-12.jpeg",
     liveDemo: "https://nittaany.github.io/NatureBytes/",
     sourceCode: "https://github.com/Nittaany/NatureBytes",
     techStack: [
