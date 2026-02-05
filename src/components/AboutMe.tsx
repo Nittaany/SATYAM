@@ -285,21 +285,18 @@ const AboutMe = () => {
                   Computer Science student building things that click, scroll, and occasionally impress.
                 </p>
                 <p>
-                  Writes code. Breaks less. Learns fast.
-                </p>
-                <p>
                   Trained through internships, fueled by curiosity. Backend, Frontend, and everything in between, I&apos;ve done a bit of it all.
                 </p>
 
                 {/* Internship Grid */}
                 <div className="grid sm:grid-cols-2 gap-4 mt-4">
                   <div className="p-3 rounded-lg border border-gray-700/30 backdrop-blur-sm">
-                    <h4 className="font-semibold text-white text-sm">Backend Intern</h4>
-                    <p className="text-purple-400 text-xs">1Stop.ai (Oct-Dec 2024)</p>
+                    <h4 className="font-semibold text-white text-sm">Project Intern</h4>
+                    <p className="text-purple-400 text-xs">Apollo Tyres Ltd. (Mar-Jul 2025)</p>
                   </div>
                   <div className="p-3 rounded-lg border border-gray-700/30 backdrop-blur-sm">
-                    <h4 className="font-semibold text-white text-sm">Full Stack Intern</h4>
-                    <p className="text-purple-400 text-xs">AICTE Virtual Internship (Oct-Dec 2024)</p>
+                    <h4 className="font-semibold text-white text-sm">Backend Intern</h4>
+                    <p className="text-purple-400 text-xs">1Stop.ai (Oct-Dec 2024)</p>
                   </div>
                 </div>
 
