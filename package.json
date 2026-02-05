@@ -20,6 +20,7 @@
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "react-icons": "^5.5.0",
+    "react-parallax-tilt": "^1.7.319",
     "react-simple-typewriter": "^5.0.1",
     "three": "^0.179.1"
   },

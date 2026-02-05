@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
+import Tilt from 'react-parallax-tilt';
 import { 
   ExternalLink,
   Github,
@@ -27,6 +28,7 @@ interface TechStack {
 
 interface Project {
   id: number;
+  position : number;
   title: string;
   description: string;
   image?: string;
@@ -69,11 +71,18 @@ const ProjectShowcase: React.FC = () => {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   // Filter projects dynamically based on active filter
-  const filteredProjects = React.useMemo(() => {
-    return activeFilter === 'All'
+const filteredProjects = React.useMemo(() => {
+  const base =
+    activeFilter === 'All'
       ? [...projectsData]
-      : projectsData.filter((project: Project) => project.category === activeFilter);
-  }, [activeFilter]);
+      : projectsData.filter(
+          (project: Project) => project.category === activeFilter
+        );
+
+  return base.sort(
+    (a, b) => (a.position ?? 999) - (b.position ?? 999)
+  );
+}, [activeFilter]);
 
   // Get subset of projects to display
   const displayedProjects = React.useMemo(() => {
@@ -289,7 +298,8 @@ const ProjectShowcase: React.FC = () => {
         </div>
 
         {/* Projects Grid - DYNAMIC RENDERING */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {displayedProjects.map((project: Project, index: number) => (
             <div
               key={project.id}
@@ -317,6 +327,15 @@ const ProjectShowcase: React.FC = () => {
               </div>
 
               {/* Project Card */}
+              <Tilt glareEnable={true}
+                    glareMaxOpacity={0.4} 
+                    glareColor="#add8e6"
+                    tiltMaxAngleX={10} 
+                    tiltMaxAngleY={10}
+                    perspective={800} 
+                    transitionSpeed={1500} 
+                    scale={1.05}
+                    gyroscope={true} >
               <div className="relative h-full bg-white/10 backdrop-blur-xl rounded-2xl p-6 shadow-xl border border-white/20 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/20 group-hover:bg-white/15">
                 
                 {/* Glowing Border Effect */}
@@ -390,6 +409,7 @@ const ProjectShowcase: React.FC = () => {
                   </div>
                 </div>
               </div>
+              </Tilt>
             </div>
           ))}
         </div>

@@ -13,6 +13,8 @@ import {
 import { BiLogoFirebase, BiLogoJava } from 'react-icons/bi';
 import { TbBrandNextjs, TbBrandVscode } from 'react-icons/tb';
 import type { IconType } from 'react-icons';
+// import Tilt from 'react-parallax-tilt';
+
 
 interface TechStack { id: number; name: string; icon: IconType; category?: string; }
 
@@ -445,6 +447,7 @@ const HeroSection: React.FC = () => {
           </div>
 
           {/* RIGHT: Image Card */}
+
           <div className="flex-1 relative">
             <div className="relative w-[192px] h-[256px] xs:w-[208px] xs:h-[272px] sm:w-[240px] sm:h-[320px] lg:w-[320px] lg:h-[420px] mx-auto">
               {/* Image glow effect - only after mount */}
@@ -460,7 +463,8 @@ const HeroSection: React.FC = () => {
               )}
 
               {/* Main Image Card */}
-              <div className={`relative w-full h-full rounded-lg overflow-hidden border-2 group z-10 ${mounted && !shouldReduceMotion ? 'neon-border' : 'border-white/20'}`}>
+              
+                <div className={`relative w-full h-full rounded-lg overflow-hidden border-2 group z-10 ${mounted && !shouldReduceMotion ? 'neon-border' : 'border-white/20'}`}>
                 <Image
                   src="https://sdvpl1b3ic9gmobr.public.blob.vercel-storage.com/public/images/me.JPG"
                   alt="Profile"
@@ -470,7 +474,7 @@ const HeroSection: React.FC = () => {
                   style={{ filter: 'brightness(0.9) contrast(1.1)' }}
                   priority
                 />
-
+                
                 {/* Top terminal overlay - on hover */}
                 <div className="absolute top-0 left-0 right-0 bg-gradient-to-b from-black/80 to-transparent p-3 -translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                   <div className="flex items-center gap-1.5">
@@ -490,7 +494,6 @@ const HeroSection: React.FC = () => {
             </div>
           </div>
         </motion.div>
-
         {/* TERMINAL + TECH RAIL */}
         <motion.div
           className="mt-12 w-full max-w-4xl mx-auto"
