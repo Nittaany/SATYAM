@@ -329,12 +329,10 @@ const filteredProjects = React.useMemo(() => {
               {/* Project Card */}
               <Tilt glareEnable={true}
                     glareMaxOpacity={0.4} 
-                    glareColor="#add8e6"
+                    glareColor="#87BAC9"
                     tiltMaxAngleX={10} 
                     tiltMaxAngleY={10}
-                    perspective={800} 
-                    transitionSpeed={1500} 
-                    scale={1.05}
+                    transitionSpeed={2500} 
                     gyroscope={true} >
               <div className="relative h-full bg-white/10 backdrop-blur-xl rounded-2xl p-6 shadow-xl border border-white/20 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/20 group-hover:bg-white/15">
                 
@@ -402,7 +400,7 @@ const filteredProjects = React.useMemo(() => {
                           className="flex-1 flex items-center justify-center space-x-2 border border-purple-500 hover:border-purple-400 px-4 py-2 rounded-xl text-purple-400 hover:text-white hover:bg-purple-500/20 font-semibold text-sm transition-all duration-300 transform hover:scale-105"
                         >
                           <Github className="w-4 h-4" />
-                          <span>View Code</span>
+                          <span>Learn More</span>
                         </a>
                       )}
                     </div>

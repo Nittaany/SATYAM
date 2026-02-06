@@ -5,7 +5,7 @@ export const projectsData = [
     position: 1,
     title: "SATYAM",
     description: "My personal portfolio webpage built with TypeScript, showcasing skills, projects, and portfolio highlights.",
-    image: "https://sdvpl1b3ic9gmobr.public.blob.vercel-storage.com/public/images/projectimage/img-1.jpeg",
+    image: "https://sdvpl1b3ic9gmobr.public.blob.vercel-storage.com/Portfolio-projimg/portfolio.jpeg",
     liveDemo: "",
     sourceCode: "https://github.com/Nittaany/SATYAM",
     techStack: [
@@ -23,7 +23,7 @@ export const projectsData = [
     position: 4,
     title: "E-Volve (E-Waste Disposal Management)",
     description: "A technical project developed as part of the SMART INDIA HACKATHON for smart solutions.",
-    image: "https://sdvpl1b3ic9gmobr.public.blob.vercel-storage.com/public/images/projectimage/img-2.jpeg",
+    image: "https://sdvpl1b3ic9gmobr.public.blob.vercel-storage.com/Portfolio-projimg/evolve.jpeg",
     liveDemo: "https://evolve-mavericks.vercel.app/",
     sourceCode: "https://github.com/Shantanu993/EVolve_ZENITH_SIH1392.git",
     techStack: [
@@ -40,7 +40,7 @@ export const projectsData = [
     position: 5,
     title: "Lingua-Box",
     description: "Summarizes text or PDFs, translates to multiple languages, and converts content to speech.",
-    image: "https://sdvpl1b3ic9gmobr.public.blob.vercel-storage.com/public/images/projectimage/img-3.jpeg",
+    image: "https://sdvpl1b3ic9gmobr.public.blob.vercel-storage.com/Portfolio-projimg/linguabox.jpeg",
     liveDemo: "https://colab.research.google.com/drive/1r5hWtTV8hk15BLNJnqqGM_ktYV_LtVwZ",
     sourceCode: "https://github.com/Nittaany/Lingua-Box",
     techStack: [
@@ -55,10 +55,10 @@ export const projectsData = [
   },
   {
     id: 4,
-    position: 5,
+    position: 6,
     title: "Expense Ledger",
     description: "Budget tracking system built with PHP & MySQL to manage income, expenses, and savings.",
-    image: "https://sdvpl1b3ic9gmobr.public.blob.vercel-storage.com/public/images/projectimage/img-4.jpeg",
+    image: "https://sdvpl1b3ic9gmobr.public.blob.vercel-storage.com/Portfolio-projimg/expenseledger.jpeg",
     liveDemo: "",
     sourceCode: "https://github.com/Nittaany/Expense_Ledger",
     techStack: [
@@ -72,10 +72,10 @@ export const projectsData = [
   },
   {
     id: 5,
-    position: 8,
+    position: 7,
     title: "Water Level Controller",
     description: "Smart water level monitoring system with pump control using sensors and motors.",
-    image: "https://sdvpl1b3ic9gmobr.public.blob.vercel-storage.com/public/images/projectimage/img-5.jpeg",
+    image: "https://sdvpl1b3ic9gmobr.public.blob.vercel-storage.com/Portfolio-projimg/waterlevel.jpeg",
     liveDemo: "https://drive.google.com/file/d/1TBmy9M0k2LNoWJ65NNz6bQ8MHIUsC6q0/view?usp=drive_link",
     sourceCode: "https://github.com/Nittaany/Water-Level-Controller",
     techStack: [
@@ -88,10 +88,10 @@ export const projectsData = [
   },
   {
     id: 6,
-    position: 9,
+    position: 8,
     title: "Planetary",
     description: "Space-themed interactive web app built with Next.js, Three.js, and Tailwind CSS.",
-    image: "https://sdvpl1b3ic9gmobr.public.blob.vercel-storage.com/public/images/projectimage/img-6.jpeg",
+    image: "https://sdvpl1b3ic9gmobr.public.blob.vercel-storage.com/Portfolio-projimg/planetry.jpeg",
     liveDemo: "https://planetary-webapp.vercel.app/",
     sourceCode: "https://github.com/Nittaany/Planetary",
     techStack: [
@@ -105,28 +105,10 @@ export const projectsData = [
   },
   {
     id: 7,
-    position: 10,
-    title: "CountDown Timer - Canvas",
-    description: "Canvas-based countdown timer project for frontend practice.",
-    image: "https://sdvpl1b3ic9gmobr.public.blob.vercel-storage.com/public/images/projectimage/img-7.jpeg",
-    liveDemo: "https://nittaany.github.io/CountDown-Timer---Canvas/",
-    sourceCode: "https://github.com/Nittaany/CountDown-Timer---Canvas",
-    techStack: [
-      { name: "HTML", color: "text-orange-400", bgColor: "bg-orange-500/20" },
-      { name: "CSS", color: "text-blue-400", bgColor: "bg-blue-500/20" },
-      { name: "JavaScript", color: "text-yellow-400", bgColor: "bg-yellow-500/20" }
-      
-    ],
-    category: "Web Apps",
-    featured: false,
-    status: "completed"
-  },
-  {
-    id: 8,
-    position: 11,
+    position: 9,
     title: "Hotel Management System - Laravel",
     description: "Hotel management system using Laravel framework for backend operations.",
-    image: "https://sdvpl1b3ic9gmobr.public.blob.vercel-storage.com/public/images/projectimage/img-8.jpeg",
+    image: "https://sdvpl1b3ic9gmobr.public.blob.vercel-storage.com/Portfolio-projimg/hms.jpeg",
     liveDemo: "",
     sourceCode: "https://github.com/Nittaany/Hotel-Management-System---Laravel",
     techStack: [
@@ -138,11 +120,11 @@ export const projectsData = [
     status: "completed"
   },
   {
-    id: 9,
-    position: 12,
+    id: 8,
+    position: 10,
     title: "Task-Manager - Laravel",
     description: "Task management system built using Laravel for handling daily tasks efficiently.",
-    image: "https://sdvpl1b3ic9gmobr.public.blob.vercel-storage.com/public/images/projectimage/img-9.jpeg",
+    image: "https://sdvpl1b3ic9gmobr.public.blob.vercel-storage.com/Portfolio-projimg/taskmang.jpeg",
     liveDemo: "",
     sourceCode: "https://github.com/Nittaany/Task-Manager---Laravel",
     techStack: [
@@ -154,11 +136,11 @@ export const projectsData = [
     status: "completed"
   },
   {
-    id: 10,
-    position: 13,
+    id: 9,
+    position: 11,
     title: "Weather App - Python",
     description: "Weather app built using Python and OpenWeatherMap API to fetch and display real-time weather data.",
-    image: "https://sdvpl1b3ic9gmobr.public.blob.vercel-storage.com/public/images/projectimage/img-10.jpeg",
+    image: "https://sdvpl1b3ic9gmobr.public.blob.vercel-storage.com/Portfolio-projimg/weather.jpeg",
     liveDemo: "",
     sourceCode: "https://github.com/Nittaany/Weather_Python",
     techStack: [
@@ -171,28 +153,11 @@ export const projectsData = [
     status: "completed"
   },
   {
-    id: 11,
-    position: 14,
-    title: "Humankind - Clone",
-    description: "Frontend clone of the Humankind website for learning purposes.",
-    image: "https://sdvpl1b3ic9gmobr.public.blob.vercel-storage.com/public/images/projectimage/img-11.jpeg",
-    liveDemo: "https://nittaany.github.io/HK-clone/",
-    sourceCode: "https://github.com/Nittaany/HK-clone",
-    techStack: [
-      { name: "HTML", color: "text-orange-400", bgColor: "bg-orange-500/20" },
-      { name: "CSS", color: "text-blue-400", bgColor: "bg-blue-500/20" },
-      { name: "JavaScript", color: "text-yellow-400", bgColor: "bg-yellow-500/20" }
-    ],
-    category: "Web Apps",
-    featured: false,
-    status: "completed"
-  },
-  {
-    id: 12,
-    position: 15,
+    id: 10,
+    position: 12,
     title: "Mann Maaujii - Wander with Heart",
     description: "Simple Expo app prototype showcasing basic frontend concepts and responsiveness.",
-    image: "https://sdvpl1b3ic9gmobr.public.blob.vercel-storage.com/public/images/projectimage/img-15.jpeg",
+    image: "https://sdvpl1b3ic9gmobr.public.blob.vercel-storage.com/Portfolio-projimg/mm.jpeg",
     liveDemo: "https://nittaany.github.io/MM/",
     sourceCode: "https://github.com/Nittaany/MM",
     techStack: [
@@ -205,27 +170,11 @@ export const projectsData = [
     status: "completed"
   },
   {
-    id: 13,
-    position: 16,
-    title: "To-do-List - PHP",
-    description: "Simple To-Do List application built with PHP for learning CRUD operations.",
-    image: "https://sdvpl1b3ic9gmobr.public.blob.vercel-storage.com/public/images/projectimage/img-13.jpeg",
-    liveDemo: "",
-    sourceCode: "https://github.com/Nittaany/PHP-To-do-List",
-    techStack: [
-      { name: "PHP", color: "text-purple-400", bgColor: "bg-purple-500/20" },
-      { name: "JavaScript", color: "text-yellow-400", bgColor: "bg-yellow-500/20" },
-      { name: "CSS", color: "text-blue-400", bgColor: "bg-blue-500/20" }
-    ],
-    category: "Web Apps",
-    featured: false,
-    status: "completed"
-  },
-  {
-    id: 17,
+    id: 11,
+    position: 13,
     title: "Piggy - Dice Game",
     description: "Strategic two-player dice game built with frontend technologies for interactive gameplay.",
-    image: "https://sdvpl1b3ic9gmobr.public.blob.vercel-storage.com/public/images/projectimage/img-14.jpeg",
+    image: "https://sdvpl1b3ic9gmobr.public.blob.vercel-storage.com/Portfolio-projimg/piggydice.jpeg",
     liveDemo: "https://nittaany.github.io/piggyDice/",
     sourceCode: "https://github.com/Nittaany/piggyDice",
     techStack: [
@@ -238,28 +187,11 @@ export const projectsData = [
     status: "completed"
   },
   {
-    id: 15,
-    position: 18,
-    title: "NatureBytes",
-    description: "Hackathon prototype promoting environmental awareness through interactive web interfaces.",
-    image: "https://sdvpl1b3ic9gmobr.public.blob.vercel-storage.com/public/images/projectimage/img-12.jpeg",
-    liveDemo: "https://nittaany.github.io/NatureBytes/",
-    sourceCode: "https://github.com/Nittaany/NatureBytes",
-    techStack: [
-      { name: "HTML", color: "text-orange-400", bgColor: "bg-orange-500/20" },
-      { name: "CSS", color: "text-blue-400", bgColor: "bg-blue-500/20" },
-      { name: "JavaScript", color: "text-yellow-400", bgColor: "bg-yellow-500/20" }
-    ],
-    category: "Web Apps",
-    featured: false,
-    status: "completed"
-  },
-  {
-    id: 16,
-    position: 19,
+    id: 12,
+    position: 14,
     title: "Number-Guess",
     description: "Old-school number guessing game built with HTML, CSS, and JavaScript for learning frontend interaction.",
-    image: "https://sdvpl1b3ic9gmobr.public.blob.vercel-storage.com/public/images/projectimage/img-16.jpeg",
+    image: "https://sdvpl1b3ic9gmobr.public.blob.vercel-storage.com/Portfolio-projimg/numberguess.jpeg",
     liveDemo: "https://nittaany.github.io/Number-Guess/",
     sourceCode: "https://github.com/Nittaany/Number-Guess",
     techStack: [
@@ -272,13 +204,13 @@ export const projectsData = [
     status: "completed"
   },
   {
-  id: 17,
+  id: 13,
   position: 3,
   title: "CashDash",
   description:
     "Full-stack expense tracking system with Devops integration.",
   image:
-    "https://sdvpl1b3ic9gmobr.public.blob.vercel-storage.com/public/images/projectimage/expense-ledger.jpg",
+    "https://sdvpl1b3ic9gmobr.public.blob.vercel-storage.com/Portfolio-projimg/cashdash.jpeg",
   liveDemo:
     "https://d3i0gx02p5neni.cloudfront.net/dashboard",
   sourceCode: "https://github.com/Nittaany/CashDash",
@@ -295,13 +227,13 @@ export const projectsData = [
   status: "completed"
 },
 {
-  id: 18,
+  id: 14,
   position: 2,
   title: "Webcam-Based Hand Gesture & ISL Interface",
   description:
     "My Bachelor's Major_Project.",
   image:
-    "https://sdvpl1b3ic9gmobr.public.blob.vercel-storage.com/public/images/projectimage/gesture-interface.jpg",
+    "https://sdvpl1b3ic9gmobr.public.blob.vercel-storage.com/Portfolio-projimg/majorproj.jpeg",
   liveDemo: null,
   sourceCode: "https://github.com/Nittaany/Major-Project",
   techStack: [
