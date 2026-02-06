@@ -8,14 +8,15 @@ import {
   Code,
   Globe,
   Database,
-  Smartphone,
+  MonitorCog,
   Monitor,
+  CloudCheck,
   Server,
-  Users,
   Rocket,
   Star,
   Clock,
   CheckCircle,
+  RectangleEllipsis,
   Play
 } from 'lucide-react';
 
@@ -48,6 +49,7 @@ interface FilterCategory {
 // Import projects data from separate file
 import { projectsData as importedProjects } from '../data/projects.js';
 
+
 // Cast the imported data to Project type
 const projectsData = importedProjects as unknown as Project[];
 
@@ -56,8 +58,8 @@ const filterCategories: FilterCategory[] = [
   { name: "All", icon: <Globe className="w-4 h-4" /> },
   { name: "Web Apps", icon: <Monitor className="w-4 h-4" /> },
   { name: "Full Stack", icon: <Server className="w-4 h-4" /> },
-  { name: "Mobile Apps", icon: <Smartphone className="w-4 h-4" /> },
-  { name: "Internship", icon: <Users className="w-4 h-4" /> },
+  { name: "IOT", icon: <MonitorCog className="w-4 h-4" /> },
+  { name: "DevOps", icon: <CloudCheck className="w-4 h-4" /> },
   { name: "Freelance", icon: <Rocket className="w-4 h-4" /> }
 ];
 

@@ -82,7 +82,7 @@ export const projectsData = [
       { name: "C++", color: "text-gray-400", bgColor: "bg-gray-500/20" },
       { name: "Arduino", color: "text-red-400", bgColor: "bg-red-500/20" }
     ],
-    category: "Full Stack",
+    category: "IOT",
     featured: true,
     status: "completed"
   },
@@ -245,7 +245,7 @@ export const projectsData = [
   ],
   category: "AI / ML",
   featured: true,
-  status: "completed"
+  status: "in-progress"
 }
 
 
