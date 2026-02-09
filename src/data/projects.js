@@ -32,7 +32,7 @@ export const projectsData = [
       { name: "JavaScript", color: "text-yellow-400", bgColor: "bg-yellow-500/20" }
     ],
     category: "Web Apps",
-    featured: true,
+    featured: false,
     status: "completed"
   },
   {
@@ -67,7 +67,7 @@ export const projectsData = [
       { name: "JavaScript", color: "text-yellow-400", bgColor: "bg-yellow-500/20" }
     ],
     category: "Full Stack",
-    featured: true,
+    featured: false,
     status: "completed"
   },
   {
@@ -100,7 +100,7 @@ export const projectsData = [
       { name: "Tailwind", color: "text-teal-400", bgColor: "bg-teal-500/20" }
     ],
     category: "Web Apps",
-    featured: true,
+    featured: false,
     status: "completed"
   },
   {
@@ -149,7 +149,7 @@ export const projectsData = [
       { name: "Tkinter", color: "text-green-400", bgColor: "bg-green-500/20" }
     ],
     category: "Web Apps",
-    featured: false,
+    featured: true,
     status: "completed"
   },
   {
@@ -240,8 +240,8 @@ export const projectsData = [
     { name: "Python", color: "text-yellow-400", bgColor: "bg-yellow-500/20" },
     { name: "OpenCV", color: "text-green-400", bgColor: "bg-green-500/20" },
     { name: "MediaPipe", color: "text-blue-400", bgColor: "bg-blue-500/20" },
-    { name: "CNN", color: "text-purple-400", bgColor: "bg-purple-500/20" },
-    { name: "Machine Learning", color: "text-pink-400", bgColor: "bg-pink-500/20" }
+    { name: "Machine Learning", color: "text-pink-400", bgColor: "bg-pink-500/20" },
+    { name: "LSTM", color: "text-purple-400", bgColor: "bg-purple-500/20" }
   ],
   category: "AI / ML",
   featured: true,
